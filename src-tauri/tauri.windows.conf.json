@@ -1,0 +1,8 @@
+{
+  "bundle": {
+    "resources": {
+      "engine/fairy-stockfish.exe": "engine/fairy-stockfish.exe",
+      "engine/COPYING.txt": "engine/COPYING.txt"
+    }
+  }
+}

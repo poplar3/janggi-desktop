@@ -1,0 +1,57 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "Janggi",
+  "mainBinaryName": "janggi",
+  "version": "0.1.0",
+  "identifier": "io.github.poplar3.janggi",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:5173",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Чанги — корейские шахматы",
+        "width": 1280,
+        "height": 860,
+        "minWidth": 1024,
+        "minHeight": 700,
+        "resizable": true,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "publisher": "poplar3",
+    "copyright": "GPL-3.0",
+    "category": "BoardGame",
+    "shortDescription": "Чанги — корейские шахматы",
+    "longDescription": "Игра в Чанги (корейские шахматы) с ИИ на основе Fairy-Stockfish, подсказками и анализом.",
+    "license": "GPL-3.0",
+    "licenseFile": "../LICENSE",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "nsis": {
+        "languages": ["Russian", "English"],
+        "displayLanguageSelector": false,
+        "installMode": "currentUser"
+      },
+      "wix": {
+        "language": "ru-RU"
+      }
+    }
+  }
+}

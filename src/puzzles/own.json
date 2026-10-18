@@ -1,0 +1,1834 @@
+[
+ {
+  "id": "own-00reeyl",
+  "origin": "game",
+  "fen": "3k5/n2a5/4cN3/7rp/8p/5RP2/1PPP5/9/1C7/3K5 w - - 0 1",
+  "goal": "material",
+  "gain": 13,
+  "line": [
+   "f8h7"
+  ]
+ },
+ {
+  "id": "own-00t7yqf",
+  "origin": "compose",
+  "fen": "3N1a3/3k5/9/9/5b1p1/9/7p1/3A4r/9/4K4 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "i3d3",
+   "d10b9",
+   "f6h3"
+  ]
+ },
+ {
+  "id": "own-00xhlys",
+  "origin": "game",
+  "fen": "rb1a1abn1/4k4/1c1n3c1/2p4pp/9/C1P6/RP1BpP2P/2CN4N/4KAr2/4A1B1R b - - 0 1",
+  "goal": "material",
+  "gain": 3,
+  "line": [
+   "e4d4"
+  ]
+ },
+ {
+  "id": "own-00ygtl7",
+  "origin": "compose",
+  "fen": "5k1N1/5a3/9/9/7P1/5P3/4b4/1p7/4K3R/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "h10g8",
+   "f10e10",
+   "i2i10",
+   "f9f10",
+   "i10f10"
+  ]
+ },
+ {
+  "id": "own-020nzw1",
+  "origin": "compose",
+  "fen": "4ak3/5a3/1B7/p7B/C1R6/9/9/9/5K3/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "c6c9",
+   "f9f8",
+   "a6a10",
+   "e10e9",
+   "c9c10",
+   "e9e10",
+   "c10e10"
+  ]
+ },
+ {
+  "id": "own-02mjviu",
+  "origin": "game",
+  "fen": "R8/3k5/3a1n3/4C4/4pp1B1/2N6/6nP1/2cp4r/9/5K3 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "i3i1"
+  ]
+ },
+ {
+  "id": "own-02wdn0u",
+  "origin": "compose",
+  "fen": "3a1k3/4b4/3r5/9/4p4/9/9/9/4KAn2/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "g2f4",
+   "f2f3",
+   "d8d3",
+   "e2e1",
+   "d3f3",
+   "e1e1",
+   "f3e2"
+  ]
+ },
+ {
+  "id": "own-02x1bf6",
+  "origin": "game",
+  "fen": "4ka2B/3a4b/9/2pp5/9/9/n2nr4/9/4A4/4K2R1 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "e4e2"
+  ]
+ },
+ {
+  "id": "own-03bojau",
+  "origin": "compose",
+  "fen": "9/4ak3/9/9/9/P8/C3B4/9/4K3R/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "e4h6",
+   "f9f10",
+   "i2i10"
+  ]
+ },
+ {
+  "id": "own-03ppthd",
+  "origin": "game",
+  "fen": "rb1a2nb1/4ka3/3nc4/p1p3ppr/4p4/9/P1P1P1P1P/3NC1NcC/4K4/RB1A1AB1R w - - 0 1",
+  "goal": "material",
+  "gain": 6,
+  "line": [
+   "i3i7"
+  ]
+ },
+ {
+  "id": "own-052h8b9",
+  "origin": "game",
+  "fen": "4a4/4kc3/3ac4/9/4p4/1P3p3/3P1PP2/3r5/5K3/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "f5f4"
+  ]
+ },
+ {
+  "id": "own-05b7h3o",
+  "origin": "compose",
+  "fen": "3k2r2/9/3a5/9/9/7r1/9/4A4/4K4/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "g10g2",
+   "e2d1",
+   "h5h1"
+  ]
+ },
+ {
+  "id": "own-05mnhl5",
+  "origin": "compose",
+  "fen": "R2a5/5k3/4a4/7B1/3C5/9/9/3A5/3K5/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "a10d10",
+   "e8d8",
+   "d10f10"
+  ]
+ },
+ {
+  "id": "own-062khhe",
+  "origin": "game",
+  "fen": "3k5/4a4/5P3/3n5/p5N2/9/2P1P4/3KC4/9/3CAA1B1 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "f8e9"
+  ]
+ },
+ {
+  "id": "own-068jn37",
+  "origin": "game",
+  "fen": "2b2R3/2ck5/4a4/9/4P4/1N7/Pp2c2P1/3C5/3AA4/2BK5 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "b5c7"
+  ]
+ },
+ {
+  "id": "own-06h4ewv",
+  "origin": "compose",
+  "fen": "9/9/2B1kC3/9/9/9/3C5/3A2R2/5K3/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "g3e3",
+   "e8d8",
+   "d4d1"
+  ]
+ },
+ {
+  "id": "own-06jrls8",
+  "origin": "game",
+  "fen": "3k5/6R2/1n2P4/pp4BB1/9/9/1PP4p1/2N6/3AA4/4K4 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "e8e9"
+  ]
+ },
+ {
+  "id": "own-06mrvui",
+  "origin": "compose",
+  "fen": "5k3/9/9/9/5r3/5n3/9/5A3/3A1K3/1n6p b - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "b1d2",
+   "f2e2",
+   "f5d4",
+   "e2d2",
+   "f6f3",
+   "d2d2",
+   "f3e2"
+  ]
+ },
+ {
+  "id": "own-077pq8l",
+  "origin": "compose",
+  "fen": "3k4n/5P3/9/5P3/9/9/9/9/9/4K3p w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "f7f8",
+   "d10d9",
+   "f8e8",
+   "i1h1",
+   "f9e9"
+  ]
+ },
+ {
+  "id": "own-07c0o39",
+  "origin": "game",
+  "fen": "9/3a5/2n1k4/1p2N4/9/4r4/2PPC4/3K1A3/4A4/9 w - - 0 1",
+  "goal": "material",
+  "gain": 5,
+  "line": [
+   "e7c8"
+  ]
+ },
+ {
+  "id": "own-07yhl15",
+  "origin": "compose",
+  "fen": "5k3/9/3P3N1/9/C1P6/9/9/9/1p7/3K5 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "h8f7",
+   "b2b1",
+   "d8e9"
+  ]
+ },
+ {
+  "id": "own-097f34l",
+  "origin": "compose",
+  "fen": "5k3/9/Cb2a4/3c5/9/4n4/9/4A4/3K5/6r2 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "g1g2",
+   "e3e2",
+   "b8d5"
+  ]
+ },
+ {
+  "id": "own-09wb7lv",
+  "origin": "compose",
+  "fen": "4P4/3k5/9/7P1/9/9/9/R3AK3/R8/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "a3a9",
+   "d9d8",
+   "a2a8"
+  ]
+ },
+ {
+  "id": "own-09xq42v",
+  "origin": "game",
+  "fen": "9/3a5/2n1k4/1p7/2N6/5r3/2PPC4/3K1A3/4A4/9 w - - 0 1",
+  "goal": "material",
+  "gain": 5,
+  "line": [
+   "c6e7",
+   "f5e5",
+   "e7c8"
+  ]
+ },
+ {
+  "id": "own-0a47lo1",
+  "origin": "compose",
+  "fen": "5k3/5a3/9/3R5/7r1/9/2N6/2r2A3/4bAc2/3K5 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "h6h1",
+   "d1d2",
+   "e2g5",
+   "f2f1",
+   "c3c2",
+   "d2d1",
+   "h1f1"
+  ]
+ },
+ {
+  "id": "own-0ac75is",
+  "origin": "compose",
+  "fen": "9/3a5/3a1k3/n8/9/2N5p/9/3N5/3R5/3K5 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "d1e1",
+   "d8e8",
+   "c5d7",
+   "f8f9",
+   "d2f2",
+   "e8f8",
+   "f2f8"
+  ]
+ },
+ {
+  "id": "own-0agusan",
+  "origin": "game",
+  "fen": "9/4c4/4k4/1p7/9/2p4P1/3P3P1/5R3/4AK3/5C3 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "f3f8"
+  ]
+ },
+ {
+  "id": "own-0ax2ef4",
+  "origin": "game",
+  "fen": "3k5/4C4/1R1P5/1n7/9/1P1P1B3/6PP1/5N3/4cA3/4K4 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "b8b10"
+  ]
+ },
+ {
+  "id": "own-0dae3fq",
+  "origin": "compose",
+  "fen": "5a3/3P1k3/4a2R1/2c6/5P3/9/9/1b7/2B1K4/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "h8h9",
+   "f9f8",
+   "f6f7"
+  ]
+ },
+ {
+  "id": "own-0dq7m46",
+  "origin": "game",
+  "fen": "3ak4/4a4/9/2p5p/p1c6/2B6/2PR5/9/9/3K1R1r1 b - - 0 1",
+  "goal": "material",
+  "gain": 13,
+  "line": [
+   "h1f1"
+  ]
+ },
+ {
+  "id": "own-0dwvayh",
+  "origin": "compose",
+  "fen": "4a4/4k4/P8/9/1P2N4/9/9/9/5K3/8R w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "i1i8",
+   "e10d10",
+   "i8d8",
+   "e9e10",
+   "e6f8"
+  ]
+ },
+ {
+  "id": "own-0e9p8r9",
+  "origin": "compose",
+  "fen": "9/1b3a3/4ka3/9/9/p2N5/1R7/9/3A5/5K3 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "b4b9",
+   "a5a4",
+   "d5c7",
+   "e8d8",
+   "b9d9"
+  ]
+ },
+ {
+  "id": "own-0eqy52d",
+  "origin": "compose",
+  "fen": "5k3/4a4/9/9/8r/9/4n4/4A1p2/5A3/5K3 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "i6i1",
+   "f1e2",
+   "e4c3",
+   "e3d3",
+   "i1d1",
+   "e2e3",
+   "c3d5"
+  ]
+ },
+ {
+  "id": "own-0fhaow9",
+  "origin": "compose",
+  "fen": "9/9/4k4/9/9/9/6p2/8b/3K5/3A1Ar2 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "e8d8",
+   "d2e2",
+   "g1f1",
+   "e2e3",
+   "i3g6"
+  ]
+ },
+ {
+  "id": "own-0fpgp4r",
+  "origin": "game",
+  "fen": "3ak2n1/2n1a4/3Rb2c1/6p2/9/2P2r3/8P/3A3R1/3K5/5A3 b - - 0 1",
+  "goal": "material",
+  "gain": 13,
+  "line": [
+   "h8d8"
+  ]
+ },
+ {
+  "id": "own-0gsqeqv",
+  "origin": "compose",
+  "fen": "2c6/3k5/2R3b2/b8/3r5/9/9/9/3A1K2B/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "d6d2",
+   "f2f1",
+   "d2d1",
+   "f1f2",
+   "a7d5"
+  ]
+ },
+ {
+  "id": "own-0h4zg5l",
+  "origin": "compose",
+  "fen": "4aa3/4k4/3B5/9/8N/9/8P/9/3K1A3/1R7 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "d8g6",
+   "e9f8",
+   "b1b8",
+   "f8f9",
+   "i6h8"
+  ]
+ },
+ {
+  "id": "own-0ithr4x",
+  "origin": "compose",
+  "fen": "4k4/5P3/9/1c7/B8/9/9/9/3K5/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "a6d4",
+   "e10e10",
+   "d4b7",
+   "e10e10",
+   "f9e9"
+  ]
+ },
+ {
+  "id": "own-0j07v8x",
+  "origin": "game",
+  "fen": "1R1akc1R1/5a3/3r5/2p1PPB2/9/1P7/1P7/4B4/3A5/c3KAr2 b - - 0 1",
+  "goal": "material",
+  "gain": 3,
+  "line": [
+   "a1f1"
+  ]
+ },
+ {
+  "id": "own-0j09ihx",
+  "origin": "compose",
+  "fen": "9/3k5/9/9/4b4/6p2/9/3p1A3/9/3K5 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "d3e3",
+   "d1e1",
+   "e3f3",
+   "e1f1",
+   "e6b4",
+   "f1e1",
+   "f3e2"
+  ]
+ },
+ {
+  "id": "own-0j2eifi",
+  "origin": "compose",
+  "fen": "8C/2Na1k3/5aP2/9/9/9/9/9/3K5/5A2R w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "i1i9",
+   "f9f10",
+   "g8f8",
+   "d9d8",
+   "f8f9"
+  ]
+ },
+ {
+  "id": "own-0j67yl4",
+  "origin": "compose",
+  "fen": "3k1a3/R3a4/9/4P1p2/6R2/9/7B1/9/4K4/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "g6d6",
+   "e9d8",
+   "d6d8",
+   "d10e10",
+   "a9a10"
+  ]
+ },
+ {
+  "id": "own-0kh76be",
+  "origin": "compose",
+  "fen": "9/5k3/4P2P1/9/5b3/9/9/9/3K5/1c7 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "h8g8",
+   "f6d3",
+   "g8f8",
+   "f9f10",
+   "e8e9"
+  ]
+ },
+ {
+  "id": "own-0kkdb66",
+  "origin": "compose",
+  "fen": "9/B4a1c1/r2k5/9/9/9/9/9/2p2K3/7r1 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "h1h2",
+   "f2f1",
+   "a8a1"
+  ]
+ },
+ {
+  "id": "own-0ktwl9v",
+  "origin": "compose",
+  "fen": "2P1kr3/5R3/9/8N/4p4/1N7/9/4K4/5A3/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "c10d10",
+   "e10d10",
+   "f9f10",
+   "d10d9",
+   "b5c7"
+  ]
+ },
+ {
+  "id": "own-0la2hyd",
+  "origin": "game",
+  "fen": "3a1ab2/4k1r2/cC1n5/pp1b1p1p1/9/4NN3/P7P/9/3AK4/RBr2ABR1 b - - 0 1",
+  "goal": "material",
+  "gain": 3,
+  "line": [
+   "g9g2",
+   "e2e3",
+   "g2d2"
+  ]
+ },
+ {
+  "id": "own-0lum9r1",
+  "origin": "compose",
+  "fen": "3k5/9/5P1B1/3c5/9/3n2b2/9/6p2/9/4K4 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "g3f3",
+   "f8e9",
+   "d10e9",
+   "e1f1",
+   "f3e2"
+  ]
+ },
+ {
+  "id": "own-0miwyo4",
+  "origin": "game",
+  "fen": "3ankr2/4an3/8c/3b4R/cp3r3/5P3/1PP1P3P/R2N5/3C1K3/3A1AB2 w - - 0 1",
+  "goal": "material",
+  "gain": 13,
+  "line": [
+   "f5f6"
+  ]
+ },
+ {
+  "id": "own-0mxpt6b",
+  "origin": "compose",
+  "fen": "4a4/5k3/5a3/7RN/9/9/7P1/7N1/3K5/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "h7h9",
+   "f9f10",
+   "i7g8"
+  ]
+ },
+ {
+  "id": "own-0nx7n7x",
+  "origin": "game",
+  "fen": "2bn1a3/4k4/3c5/2pr3n1/4p4/6P2/PP2c3r/2CN4C/3A5/2R1KA2R b - - 0 1",
+  "goal": "material",
+  "gain": 5,
+  "line": [
+   "d8d3"
+  ]
+ },
+ {
+  "id": "own-0nzj7bg",
+  "origin": "compose",
+  "fen": "5k3/9/1r7/R8/1n7/2b6/9/4KAN2/6p2/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "b6d5",
+   "e3d3",
+   "d5f4",
+   "d3d2",
+   "b8d8",
+   "a7d7",
+   "d8d7"
+  ]
+ },
+ {
+  "id": "own-0o1dhjg",
+  "origin": "compose",
+  "fen": "4a4/4N4/3k1a3/7P1/5C3/3B5/9/9/5A3/4K4 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "e9c10",
+   "d8d9",
+   "f6f1",
+   "f8e8",
+   "f1d1",
+   "e8d8",
+   "d5a7"
+  ]
+ },
+ {
+  "id": "own-0o3crru",
+  "origin": "compose",
+  "fen": "5k3/9/9/p8/5b3/3p5/9/3A4r/9/4K4 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "i3d3",
+   "e1e1",
+   "f6h3"
+  ]
+ },
+ {
+  "id": "own-0okffw9",
+  "origin": "compose",
+  "fen": "4k4/9/3a5/9/9/5n2c/9/3K5/9/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "i5d5",
+   "d3d2",
+   "f5d4"
+  ]
+ },
+ {
+  "id": "own-0orb5yh",
+  "origin": "compose",
+  "fen": "4a4/4k4/c3a4/9/5N3/9/2p6/1R1KR4/9/5A3 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "e3e8",
+   "e9f9",
+   "b3b9",
+   "e10e9",
+   "e8e9"
+  ]
+ },
+ {
+  "id": "own-0ovnsms",
+  "origin": "game",
+  "fen": "5k3/4a4/3R5/c8/4R4/6Pp1/P8/9/3K5/3A1A3 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "e6e9"
+  ]
+ },
+ {
+  "id": "own-0p9928w",
+  "origin": "compose",
+  "fen": "9/3aa4/3k4N/9/9/9/3C4N/9/4B4/3K5 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "d4d9",
+   "d8e8",
+   "i8g7",
+   "e8f8",
+   "g7e6",
+   "f8e8",
+   "e2c5"
+  ]
+ },
+ {
+  "id": "own-0pwf0kg",
+  "origin": "compose",
+  "fen": "9/9/3a1kn1b/9/1n7/9/9/2pA5/4K4/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "i8g5",
+   "e2e1",
+   "c3d3",
+   "e1d1",
+   "d3e2"
+  ]
+ },
+ {
+  "id": "own-0q2yywk",
+  "origin": "compose",
+  "fen": "8B/4a4/4k1C2/5BR2/9/9/9/5K3/9/3A5 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "f7c5",
+   "e8d8",
+   "g7d7",
+   "d8e8",
+   "d7d2"
+  ]
+ },
+ {
+  "id": "own-0qbntbt",
+  "origin": "compose",
+  "fen": "9/4k4/4c4/8r/9/9/9/9/4K4/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "e8e10",
+   "e2d1",
+   "i7d7"
+  ]
+ },
+ {
+  "id": "own-0qcp9jj",
+  "origin": "game",
+  "fen": "1R1akc1R1/5a3/3r5/2p1PPB2/9/1P7/1P4r2/4B4/3AA4/c3K4 b - - 0 1",
+  "goal": "material",
+  "gain": 3,
+  "line": [
+   "g4g1",
+   "e2f1",
+   "a1f1"
+  ]
+ },
+ {
+  "id": "own-0qz1gy7",
+  "origin": "game",
+  "fen": "2bakan1C/8R/4b4/1B2p1pp1/1P5c1/1P7/2n1P1PP1/3KC1N2/2rAA4/6B2 b - - 0 1",
+  "goal": "material",
+  "gain": 5,
+  "line": [
+   "c4b2",
+   "e3e7",
+   "c10e7"
+  ]
+ },
+ {
+  "id": "own-0slrqe9",
+  "origin": "compose",
+  "fen": "4a4/3aB4/4k4/9/R8/5C3/9/3KA4/9/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "a6e6",
+   "e8f8",
+   "e9c6",
+   "f8f9",
+   "e6f6"
+  ]
+ },
+ {
+  "id": "own-0txw3sb",
+  "origin": "compose",
+  "fen": "1R7/9/3k4N/9/9/9/9/5K3/9/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "b10d10",
+   "d8e8",
+   "i8g7"
+  ]
+ },
+ {
+  "id": "own-0tym4hs",
+  "origin": "compose",
+  "fen": "5a3/9/1n2k4/4C4/9/1c7/9/5A1r1/3KA1N2/2b6 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "e8d8",
+   "e2d3",
+   "h3f3",
+   "g2e1",
+   "c1a4"
+  ]
+ },
+ {
+  "id": "own-0ucsz65",
+  "origin": "compose",
+  "fen": "9/4ab3/4k4/9/9/9/3P1Cp2/5K2b/2p6/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "g4f4",
+   "f3f2",
+   "f9h6",
+   "d4c4",
+   "f4f3"
+  ]
+ },
+ {
+  "id": "own-0udzik8",
+  "origin": "compose",
+  "fen": "2P4n1/4k4/1r1a5/4c4/9/b8/9/9/3KA4/4A4 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "b8b2",
+   "d2d1",
+   "a5d7",
+   "c10b10",
+   "d7b4"
+  ]
+ },
+ {
+  "id": "own-0vbr63p",
+  "origin": "game",
+  "fen": "3a1k3/4ac3/5n3/2B2R1p1/5p3/6P2/3P5/4C4/4KC2r/3A5 w - - 0 1",
+  "goal": "material",
+  "gain": 7,
+  "line": [
+   "c7f9"
+  ]
+ },
+ {
+  "id": "own-0vsmgul",
+  "origin": "compose",
+  "fen": "9/4a1R2/C3k4/9/9/N8/9/4A4/7c1/3K5 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "a5b7",
+   "e8f8",
+   "b7d8",
+   "e9e8",
+   "d8e6"
+  ]
+ },
+ {
+  "id": "own-0w38bab",
+  "origin": "compose",
+  "fen": "4k4/9/5a3/3B1R3/9/9/9/9/9/5K3 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "f7f8",
+   "e10e10",
+   "f8f10"
+  ]
+ },
+ {
+  "id": "own-0wqrdxw",
+  "origin": "compose",
+  "fen": "4k4/1P3a3/5a3/9/5c3/9/R8/7B1/3K1A1n1/6R2 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "g1e1",
+   "f8e8",
+   "e1e8",
+   "f9e9",
+   "a4a10"
+  ]
+ },
+ {
+  "id": "own-0wuhqvl",
+  "origin": "game",
+  "fen": "3k1N3/3b5/4PP3/9/2n5B/2N4P1/9/9/3A1K3/3C5 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "f8e9"
+  ]
+ },
+ {
+  "id": "own-0yc9n0c",
+  "origin": "compose",
+  "fen": "2N1a4/3ka4/1b2B4/9/8r/9/R8/9/4K4/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "a4d4",
+   "b8d5",
+   "d4d5",
+   "i6d6",
+   "d5d6",
+   "e9d8",
+   "d6d8"
+  ]
+ },
+ {
+  "id": "own-10n8v0w",
+  "origin": "compose",
+  "fen": "9/3k1c3/9/b8/8r/9/3N5/4n4/5K3/3AA4 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "i6i2",
+   "f2f3",
+   "e3f5"
+  ]
+ },
+ {
+  "id": "own-119ff9m",
+  "origin": "compose",
+  "fen": "9/3k1b3/3a5/9/8r/7n1/9/4K4/3A2p2/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "i6e6",
+   "e3f3",
+   "f9d6"
+  ]
+ },
+ {
+  "id": "own-128tndc",
+  "origin": "compose",
+  "fen": "1r7/3a1k3/8b/c8/9/9/9/4R1b2/3K5/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "b10b2",
+   "d2d3",
+   "i8g5",
+   "e3e4",
+   "b2e2"
+  ]
+ },
+ {
+  "id": "own-12mb7hw",
+  "origin": "game",
+  "fen": "1nR1ak1C1/6R2/3abC3/4p4/p2p3B1/3P5/P1P3P1P/2N2N3/8r/3AKA1B1 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "g9f9"
+  ]
+ },
+ {
+  "id": "own-12prrtd",
+  "origin": "compose",
+  "fen": "9/3a5/3k5/9/r8/4B4/9/4c3b/5K3/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "a6f6",
+   "f2e2",
+   "f6f1",
+   "e2e3",
+   "i3g6"
+  ]
+ },
+ {
+  "id": "own-131wiuf",
+  "origin": "game",
+  "fen": "5a3/9/3k5/p1P6/9/9/3n5/5r3/5An2/4K4 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "f3e2"
+  ]
+ },
+ {
+  "id": "own-14eulf6",
+  "origin": "game",
+  "fen": "3ak4/4an3/9/3b2p2/5n3/9/7P1/4KA3/2r6/4A4 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "f6d5",
+   "e3d3",
+   "d7a5"
+  ]
+ },
+ {
+  "id": "own-14veypg",
+  "origin": "game",
+  "fen": "9/5k3/9/9/3P5/1PP1R4/5P1c1/1C1A5/3AK4/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "b3f3"
+  ]
+ },
+ {
+  "id": "own-15u75ys",
+  "origin": "compose",
+  "fen": "9/5k3/3a5/7p1/3b5/7p1/r8/4K4/9/4A4 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "a4a3",
+   "e3e2",
+   "a3f3",
+   "e2d2",
+   "d6a4"
+  ]
+ },
+ {
+  "id": "own-15voygq",
+  "origin": "compose",
+  "fen": "5k3/9/4a4/2P5R/9/5rn2/9/9/1p2K4/1b7 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "f5f3",
+   "e2e1",
+   "f3e3",
+   "e1d1",
+   "e3d3",
+   "d1e1",
+   "g5f3"
+  ]
+ },
+ {
+  "id": "own-160g8t3",
+  "origin": "game",
+  "fen": "r1ba1a3/4k4/1cn6/1p1p2B2/4p4/2r3NC1/P2n3PP/1C4c1N/3A1K3/R4ABR1 b - - 0 1",
+  "goal": "material",
+  "gain": 5,
+  "line": [
+   "c5g5"
+  ]
+ },
+ {
+  "id": "own-16eqlae",
+  "origin": "compose",
+  "fen": "9/4k4/7Pb/9/9/9/3cP4/5p2c/9/5K3 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "i8g5",
+   "e4d4",
+   "f3e2"
+  ]
+ },
+ {
+  "id": "own-16g5v6e",
+  "origin": "game",
+  "fen": "4a4/4kc3/3ac4/9/4p4/1P3p3/3P1PP2/9/9/5K3 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "f5f4"
+  ]
+ },
+ {
+  "id": "own-17re9xl",
+  "origin": "compose",
+  "fen": "9/3k5/9/9/6r2/9/5c1n1/9/5K3/8b b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "g6g2",
+   "f2f1",
+   "h4f3"
+  ]
+ },
+ {
+  "id": "own-1991wg5",
+  "origin": "game",
+  "fen": "5k3/5a3/3a5/1pp4p1/4cp3/P8/3c3P1/1C1KAA3/9/7N1 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "d4d9"
+  ]
+ },
+ {
+  "id": "own-19nnrgi",
+  "origin": "compose",
+  "fen": "4r4/3k5/1R2B4/6P2/9/9/9/3A5/3N5/3K5 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "e8b6",
+   "d9e9",
+   "b8e8",
+   "e9f9",
+   "e8e10",
+   "f9f8",
+   "e10f10"
+  ]
+ },
+ {
+  "id": "own-19uqpcw",
+  "origin": "compose",
+  "fen": "4k4/2Na1a3/9/9/1p3R3/8B/9/5K3/2p6/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "f6f9",
+   "c2c1",
+   "f9d9",
+   "c1b1",
+   "d9d8"
+  ]
+ },
+ {
+  "id": "own-19vt5u9",
+  "origin": "game",
+  "fen": "3a1anb1/4k4/7c1/pp3ppp1/2N6/9/P1b4PP/3C5/n2AA4/R1B1K4 b - - 0 1",
+  "goal": "material",
+  "gain": 13,
+  "line": [
+   "c4a1"
+  ]
+ },
+ {
+  "id": "own-1b43b8w",
+  "origin": "compose",
+  "fen": "r7C/3k5/4P4/3P5/9/9/9/6B2/4AKn2/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "d7d8",
+   "d9d10",
+   "e8e9"
+  ]
+ },
+ {
+  "id": "own-1b605ux",
+  "origin": "compose",
+  "fen": "4k4/4a4/3a2P2/b8/4N4/9/8N/9/1R2K4/2p1A4 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "b2b10",
+   "a7c10",
+   "b10c10",
+   "e9d10",
+   "e6d8",
+   "e10f10",
+   "c10d10"
+  ]
+ },
+ {
+  "id": "own-1bqwiu7",
+  "origin": "game",
+  "fen": "3k1N3/9/4PP3/9/1bn5B/2NC3P1/9/9/3A1K3/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "f8e9"
+  ]
+ },
+ {
+  "id": "own-1d3u498",
+  "origin": "compose",
+  "fen": "3ka4/4a4/9/9/6R2/3C5/4B4/3A5/4K4/1N7 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "g6d6",
+   "e9d9",
+   "e4g7",
+   "d9d8",
+   "d6d8"
+  ]
+ },
+ {
+  "id": "own-1doj9m6",
+  "origin": "compose",
+  "fen": "9/3P5/4k4/4n1r2/9/9/3p5/2c6/3K5/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "g7g2",
+   "d2d1",
+   "d4d3",
+   "d9c9",
+   "g2g1"
+  ]
+ },
+ {
+  "id": "own-1e7mvvp",
+  "origin": "compose",
+  "fen": "2R1a4/9/4k4/9/6c2/9/8R/4A4/5K3/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "c10e10",
+   "e8d8",
+   "i4d4"
+  ]
+ },
+ {
+  "id": "own-1egfzh0",
+  "origin": "compose",
+  "fen": "5k1b1/9/3a5/9/1c7/9/9/4K4/C5r2/B1pA5 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "g2g3",
+   "e3e2",
+   "g3f3",
+   "e2e1",
+   "f3d1"
+  ]
+ },
+ {
+  "id": "own-1f4pr7w",
+  "origin": "compose",
+  "fen": "8R/P4k3/4P4/9/6r2/4C4/9/9/2p6/3K1A3 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "i10i9",
+   "g6g9",
+   "i9g9",
+   "f9f10",
+   "e8e9"
+  ]
+ },
+ {
+  "id": "own-1fhezhq",
+  "origin": "game",
+  "fen": "3cka3/3a5/1c6R/1p4pp1/4r4/5p3/2R4P1/1C2B4/4A2B1/r2NK4 b - - 0 1",
+  "goal": "material",
+  "gain": 5,
+  "line": [
+   "d10d1"
+  ]
+ },
+ {
+  "id": "own-1fxizxt",
+  "origin": "game",
+  "fen": "3a1a3/4k4/2n1c4/1pBp5/4p2B1/3r3P1/8P/5Kc2/4A4/R4A1R1 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "d5f5"
+  ]
+ },
+ {
+  "id": "own-1g4cctw",
+  "origin": "compose",
+  "fen": "r2a5/3k5/9/7P1/9/4b4/8n/9/3A1A3/5K3 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "i4g3",
+   "f1e1",
+   "a10a1",
+   "d2d1",
+   "e5b3"
+  ]
+ },
+ {
+  "id": "own-1gi3w0b",
+  "origin": "compose",
+  "fen": "9/5k3/5C3/3R4p/4N4/9/9/9/5K3/1B2A4 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "d7d10",
+   "i7i6",
+   "e6d8"
+  ]
+ },
+ {
+  "id": "own-1gpdjzl",
+  "origin": "compose",
+  "fen": "9/2r2k3/5a3/8p/6n2/6B2/9/3K5/4A4/5Nc2 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "g6e5",
+   "d3e3",
+   "e5g4",
+   "e3d3",
+   "c9d9",
+   "g5d7",
+   "d9d7"
+  ]
+ },
+ {
+  "id": "own-1hxiikp",
+  "origin": "compose",
+  "fen": "4a4/5k3/9/9/1rc1b4/9/2p6/3K5/4A4/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "c4d4",
+   "d3d2",
+   "b6b2",
+   "d2d1",
+   "e6b4",
+   "d1e1",
+   "b2e2"
+  ]
+ },
+ {
+  "id": "own-1j5k8uv",
+  "origin": "compose",
+  "fen": "4a4/5k3/3r5/9/9/9/5cp2/9/4K4/b8 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "d8d3",
+   "e2f2",
+   "a1c4"
+  ]
+ },
+ {
+  "id": "own-1j7h3os",
+  "origin": "game",
+  "fen": "3a1anb1/4k4/7c1/pp2bppp1/1r7/2r1R4/P4B1PP/3CnN3/4A4/R1BNKA3 b - - 0 1",
+  "goal": "material",
+  "gain": 13,
+  "line": [
+   "c5e5"
+  ]
+ },
+ {
+  "id": "own-1jbfg1v",
+  "origin": "game",
+  "fen": "4k4/3aa4/4b4/9/R2P1C1p1/7P1/9/9/3K1N3/5r3 b - - 0 1",
+  "goal": "material",
+  "gain": 5,
+  "line": [
+   "f1f2"
+  ]
+ },
+ {
+  "id": "own-1kagnv2",
+  "origin": "game",
+  "fen": "4kc3/3a4R/9/9/r2rn2R1/7P1/1PP1B4/6N2/3CN4/3AKA3 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "h6e6",
+   "d6e6",
+   "e4g7"
+  ]
+ },
+ {
+  "id": "own-1kj9nyt",
+  "origin": "game",
+  "fen": "2b1a1br1/4ak3/5cn2/1p2p1p2/2p1c3p/1P7/2P2P1P1/2N2N1C1/R3AK2R/2rAC4 w - - 0 1",
+  "goal": "material",
+  "gain": 8,
+  "line": [
+   "h3h10"
+  ]
+ },
+ {
+  "id": "own-1ksmquw",
+  "origin": "compose",
+  "fen": "3k5/9/3a5/9/9/9/3p5/9/9/4Kn3 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "f1g3",
+   "e1d1",
+   "d4d3",
+   "d1e1",
+   "d3e2"
+  ]
+ },
+ {
+  "id": "own-1kwjald",
+  "origin": "compose",
+  "fen": "3a5/5k3/8N/5P3/9/4B4/9/4A4/9/4K3N w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "e5h7",
+   "d10d9",
+   "i8h10"
+  ]
+ },
+ {
+  "id": "own-1kwm6jj",
+  "origin": "game",
+  "fen": "5a3/4k4/9/p1P6/9/9/3n5/5r3/5An2/5K3 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "f3d1"
+  ]
+ },
+ {
+  "id": "own-1kzi0ke",
+  "origin": "compose",
+  "fen": "4k2N1/1R3a3/3a5/5B3/9/9/9/3K5/4A4/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "b9b10",
+   "e10e9",
+   "b10d10",
+   "e9e8",
+   "f7c5"
+  ]
+ },
+ {
+  "id": "own-1l5kacc",
+  "origin": "compose",
+  "fen": "9/9/4k4/4c4/9/9/9/3AA3r/1p7/3K5 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "i3i1",
+   "d1d2",
+   "b2c2"
+  ]
+ },
+ {
+  "id": "own-1ldaurz",
+  "origin": "compose",
+  "fen": "1c7/4c4/3k5/9/9/9/5n3/5K3/3p5/6N2 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "f4d3",
+   "g1e2",
+   "d3e5",
+   "f3f2",
+   "d2e2"
+  ]
+ },
+ {
+  "id": "own-1m9c3eu",
+  "origin": "compose",
+  "fen": "2r6/3k5/b8/9/9/9/9/4K4/5A3/4A4 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "c10e10",
+   "e3f3",
+   "a8d6"
+  ]
+ },
+ {
+  "id": "own-1mfwkoh",
+  "origin": "game",
+  "fen": "2Rc1k3/9/5a3/7p1/1B7/1r2p1P2/5PP2/9/4A4/4KA3 w - - 0 1",
+  "goal": "material",
+  "gain": 7,
+  "line": [
+   "c10d10"
+  ]
+ },
+ {
+  "id": "own-1mh06bb",
+  "origin": "compose",
+  "fen": "9/2r1ak3/9/3P1c3/9/9/3b5/3A1K3/4A4/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "f7f10",
+   "f3e3",
+   "d4g6"
+  ]
+ },
+ {
+  "id": "own-1no1iu6",
+  "origin": "compose",
+  "fen": "3k5/9/4P4/7r1/9/R8/9/2C2K3/9/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "a5a10",
+   "d10d9",
+   "a10a9",
+   "d9d10",
+   "e8e9"
+  ]
+ },
+ {
+  "id": "own-1nsczib",
+  "origin": "game",
+  "fen": "3R5/5k3/5aN2/9/6B2/2P6/6PP1/9/3KA4/3C1A3 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "d10f10"
+  ]
+ },
+ {
+  "id": "own-1og1yxl",
+  "origin": "game",
+  "fen": "1Cb1ck3/2R1a4/2n2r3/p8/7pp/1P3R1P1/4PN3/4B4/2r6/3AKA3 w - - 0 1",
+  "goal": "material",
+  "gain": 13,
+  "line": [
+   "f5g5",
+   "e9d10",
+   "f4e6",
+   "c8e7",
+   "c9c2"
+  ]
+ },
+ {
+  "id": "own-1og9hwd",
+  "origin": "compose",
+  "fen": "4a4/5k3/2B6/8r/9/9/2p4p1/4K3b/9/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "i7e7",
+   "c8e5",
+   "e7e5",
+   "e3d3",
+   "i3f5",
+   "d3d3",
+   "c4c3"
+  ]
+ },
+ {
+  "id": "own-1ojnt6w",
+  "origin": "compose",
+  "fen": "3k5/4a4/2P1PaB2/9/1R7/9/9/4K4/1c7/4b4 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "b6b10",
+   "d10d9",
+   "c8c9"
+  ]
+ },
+ {
+  "id": "own-1pc5l0w",
+  "origin": "game",
+  "fen": "5R3/3k5/cCn6/5N1p1/9/6P1p/1PPP5/9/9/3K5 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "f10d8"
+  ]
+ },
+ {
+  "id": "own-1pqlktk",
+  "origin": "game",
+  "fen": "3Ck4/3N5/3R5/4b4/9/6P2/7Pc/4K4/9/3AC4 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "d9f8"
+  ]
+ },
+ {
+  "id": "own-1qhb5k7",
+  "origin": "game",
+  "fen": "3aa4/1c2k4/3n3R1/1p1n2p1C/4p4/r8/B2P4N/9/2N1A4/2CK2B2 w - - 0 1",
+  "goal": "material",
+  "gain": 5,
+  "line": [
+   "i7d7"
+  ]
+ },
+ {
+  "id": "own-1ra0zwn",
+  "origin": "compose",
+  "fen": "3k2r2/7R1/9/9/9/1r7/9/9/3A1K3/9 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "g10g2",
+   "f2f1",
+   "b5b1",
+   "d2d1",
+   "b1d1"
+  ]
+ },
+ {
+  "id": "own-1rq3332",
+  "origin": "compose",
+  "fen": "8R/2C1k3C/3aa4/9/9/1n7/7B1/4A4/9/5K3 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "i10f10",
+   "e9d9",
+   "h4f7",
+   "e8f8",
+   "f10f8",
+   "b5a3",
+   "f8d10"
+  ]
+ },
+ {
+  "id": "own-1ruyw0u",
+  "origin": "compose",
+  "fen": "9/4a4/5k3/C8/5C3/9/9/3A1K3/2R6/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "f6f2",
+   "f8e8",
+   "c2e2",
+   "e8d8",
+   "f2d2"
+  ]
+ },
+ {
+  "id": "own-1teigdz",
+  "origin": "game",
+  "fen": "2b1a1b1r/4ak3/5cn2/1p2p1p2/2p1c3p/1P7/2P3PP1/2N2N1C1/R3AK2R/2rAC4 w - - 0 1",
+  "goal": "material",
+  "gain": 8,
+  "line": [
+   "g4f4",
+   "i10h10",
+   "h3h10"
+  ]
+ },
+ {
+  "id": "own-1ti4keh",
+  "origin": "compose",
+  "fen": "9/9/r4k3/1c7/7p1/9/9/3A5/1n2A4/4K4 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "a8a1",
+   "e2d1",
+   "a1d1"
+  ]
+ },
+ {
+  "id": "own-1tngvuv",
+  "origin": "compose",
+  "fen": "1c1aa4/6b2/4k4/9/9/3RN4/9/B4A3/4K4/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "e5f7",
+   "e8f8",
+   "d5d8",
+   "f8f9",
+   "f7h8"
+  ]
+ },
+ {
+  "id": "own-1tp51q7",
+  "origin": "compose",
+  "fen": "9/3bk4/9/N2R2P2/9/9/8P/6r2/4A4/5K3 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "d7e7",
+   "e9d8",
+   "a7b9"
+  ]
+ },
+ {
+  "id": "own-1uop4bs",
+  "origin": "game",
+  "fen": "4kc3/3a4R/9/9/r3r4/7P1/1PP1B4/6N2/3CN4/3AKA3 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "e4g7"
+  ]
+ },
+ {
+  "id": "own-1v6zl3s",
+  "origin": "compose",
+  "fen": "9/3ka4/R8/9/9/1P7/9/3B5/9/5K3 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "d3b6",
+   "d9d10",
+   "a8a10"
+  ]
+ },
+ {
+  "id": "own-1vrwcmr",
+  "origin": "compose",
+  "fen": "4bk3/8b/3N5/9/9/4p4/9/4K4/3A5/3A2n2 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "e5e4",
+   "e3d3",
+   "e4d4",
+   "d3e3",
+   "i9g6"
+  ]
+ },
+ {
+  "id": "own-1wmzttm",
+  "origin": "compose",
+  "fen": "n2a5/5k1n1/9/9/9/9/3p1p3/5A3/9/3K5 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "f4f3",
+   "d1e1",
+   "d4d3",
+   "e1d1",
+   "d3e2"
+  ]
+ },
+ {
+  "id": "own-1woh84f",
+  "origin": "game",
+  "fen": "3ac4/3ak4/9/9/3P1p1B1/7r1/P3R4/3CK4/9/3A4b b - - 0 1",
+  "goal": "material",
+  "gain": 13,
+  "line": [
+   "e10e4"
+  ]
+ },
+ {
+  "id": "own-1wrahhb",
+  "origin": "compose",
+  "fen": "3a5/3k5/8C/1pR6/9/9/5N3/9/B8/5K3 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "c7c9",
+   "d9d8",
+   "f4e6",
+   "d8e8",
+   "a2c5"
+  ]
+ },
+ {
+  "id": "own-1wu1f4q",
+  "origin": "compose",
+  "fen": "9/3k1a3/3a4B/9/2B6/7R1/9/9/4K4/9 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "i8f6",
+   "d9d10",
+   "h5h10",
+   "f9f10",
+   "h10f10"
+  ]
+ },
+ {
+  "id": "own-1xadkwn",
+  "origin": "game",
+  "fen": "1Cb1C1n2/5k3/3a1c3/3pp2p1/9/4n4/5B3/4K1p2/4A4/cbBr5 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 1,
+  "line": [
+   "e5c4"
+  ]
+ },
+ {
+  "id": "own-1xj162y",
+  "origin": "compose",
+  "fen": "4a2P1/9/3k5/8r/1bR6/9/6p2/4K4/4A1p2/4A4 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "i7e7",
+   "c6e6",
+   "e7e6",
+   "e3f3",
+   "g4f4"
+  ]
+ },
+ {
+  "id": "own-1y2ptew",
+  "origin": "game",
+  "fen": "3a5/4ak3/5n3/7pB/9/3R2P2/3P5/4C4/4Kr3/3A5 w - - 0 1",
+  "goal": "material",
+  "gain": 10,
+  "line": [
+   "e2f2"
+  ]
+ },
+ {
+  "id": "own-1y56i09",
+  "origin": "compose",
+  "fen": "2Ba5/4k4/9/3R5/9/9/9/2B5r/5K3/4p1N2 w - - 0 1",
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "d7e7",
+   "e9d8",
+   "c3a6",
+   "d8d9",
+   "c10a7"
+  ]
+ },
+ {
+  "id": "own-1yo6esg",
+  "origin": "compose",
+  "fen": "1c1k4P/9/3a5/r8/3c5/9/9/9/4A4/3K1A3 b - - 0 1",
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "a7a1",
+   "d1d2",
+   "d6d9",
+   "e2d3",
+   "a1f1",
+   "i10h10",
+   "f1d3"
+  ]
+ }
+]

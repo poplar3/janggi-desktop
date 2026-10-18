@@ -1,5 +1,5 @@
 import type { Game } from '../core/game';
-import { MOVE_LIMIT_PLIES } from '../core/game';
+import { END_REASON_RU, MOVE_LIMIT_PLIES } from '../core/game';
 import { HAN_BONUS, materialPoints, opposite, pointsWinner, type Color } from '../core/rules';
 import { PieceIcon, SIDE_KO, SIDE_NAMES, type PieceStyle } from './pieces';
 
@@ -38,6 +38,12 @@ export function ScorePanel({ game, style }: { game: Game; style: PieceStyle }) {
         <span className="muted"> (у Хана +1,5 덤)</span>
       </div>
 
+      {result && (
+        <div className={`alert game-over ${result.winner === 'w' ? 'cho' : 'han'}`} role="status">
+          <b>{result.reason === 'checkmate' ? 'Мат (외통)!' : 'Партия окончена.'}</b> Победа:{' '}
+          <b>{SIDE_NAMES[result.winner]}</b>.{result.reason !== 'checkmate' && <> {END_REASON_RU[result.reason]}.</>}
+        </div>
+      )}
       {!result && game.bikjang && (
         <div className="alert bikjang">
           <b>Биджанг (빅장)!</b> Генералы смотрят друг на друга. {SIDE_NAMES[game.turn]} должен разорвать биджанг

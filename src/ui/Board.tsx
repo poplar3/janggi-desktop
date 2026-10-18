@@ -22,6 +22,9 @@ export interface Arrow {
   to: number;
   color: string;
   label?: string;
+  dashed?: boolean;
+  /** Толстая стрелка для главного хода. */
+  main?: boolean;
 }
 
 interface Props {
@@ -80,7 +83,7 @@ export function Board({ board, style, flipped, selected, targets, lastMove, chec
           <stop offset="0%" stopColor="rgba(230,30,30,0.85)" />
           <stop offset="100%" stopColor="rgba(230,30,30,0)" />
         </radialGradient>
-        {['#2f6fd6', '#d97a00', '#7b8794'].map((c) => (
+        {['#2f6fd6', '#d97a00', '#7b8794', '#8e44ad', '#1f8a4c'].map((c) => (
           <marker key={c} id={`arrow-${c.slice(1)}`} viewBox="0 0 10 10" refX="5" refY="5" markerWidth="3.2" markerHeight="3.2" orient="auto">
             <path d="M0 0L10 5L0 10z" fill={c} />
           </marker>
@@ -155,7 +158,7 @@ export function Board({ board, style, flipped, selected, targets, lastMove, chec
         const ex = q.x - (dx / len) * 14, ey = q.y - (dy / len) * 14;
         return (
           <g key={`a${i}`} opacity={0.85} pointerEvents="none">
-            <line x1={p.x} y1={p.y} x2={ex} y2={ey} stroke={a.color} strokeWidth={i === 0 ? 9 : 6} strokeLinecap="round" markerEnd={`url(#arrow-${a.color.slice(1)})`} />
+            <line x1={p.x} y1={p.y} x2={ex} y2={ey} stroke={a.color} strokeWidth={a.main ? 9 : 6} strokeLinecap="round" strokeDasharray={a.dashed ? '12 9' : undefined} markerEnd={`url(#arrow-${a.color.slice(1)})`} />
             {a.label && (
               <text x={(p.x + q.x) / 2} y={(p.y + q.y) / 2 - 8} className="arrow-label" textAnchor="middle">
                 {a.label}

@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'JanggiHanja';
+  src: url('./assets/fonts/hanja.woff2') format('woff2');
+  font-weight: 700;
+  font-display: block;
+}
+
+:root {
+  --bg: #f4efe6;
+  --panel: #fffdf8;
+  --border: #e2d7c3;
+  --text: #2b2118;
+  --muted: #7c6f60;
+  --accent: #2f6fd6;
+  --cho: #17694a;
+  --han: #b3242a;
+  --danger: #b3242a;
+  font-family: 'Segoe UI', system-ui, 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  font-size: 15px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  user-select: none;
+}
+
+button {
+  font: inherit;
+}

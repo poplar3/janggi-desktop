@@ -1,4 +1,4 @@
-import type { MoveReview } from '../analysis/evaluator';
+import { HINT_DEPTH, type MoveReview } from '../analysis/evaluator';
 import { describePlan } from '../analysis/plan';
 import { QUALITY_INFO } from '../analysis/quality';
 import type { Game } from '../core/game';
@@ -23,6 +23,8 @@ interface Props {
   status: EngineStatus;
   lines: ShownLines | null;
   thinking: 'bot' | 'hint' | 'eval' | null;
+  /** Достигнутая глубина подсказки. */
+  hintDepth?: number;
   botName?: string;
   analysisOn: boolean;
   evalMovesOn: boolean;
@@ -81,7 +83,11 @@ export function AiPanel(p: Props) {
       )}
 
       {p.thinking === 'bot' && <div className="muted small">Компьютер думает… ({p.botName})</div>}
-      {p.thinking === 'hint' && <div className="muted small">Ищу лучший ход…</div>}
+      {p.thinking === 'hint' && (
+        <div className="muted small">
+          Ищу лучший ход… {p.hintDepth ? `глубина ${p.hintDepth} из ${HINT_DEPTH}` : ''}
+        </div>
+      )}
       {p.thinking === 'eval' && <div className="muted small">Оцениваю ход…</div>}
 
       {p.lines && (

@@ -264,6 +264,11 @@
   background: #fde8e8;
   border: 1px solid #f1a3a3;
 }
+.alert.game-over {
+  background: #e8f1fd;
+  border: 2px solid #2f6fd6;
+  font-size: 15px;
+}
 .captured {
   margin: 10px 0 6px;
   display: flex;

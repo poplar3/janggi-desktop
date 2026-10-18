@@ -31,13 +31,29 @@ export interface SearchOptions {
   /** Ограничение силы по Elo; undefined — полная сила. */
   elo?: number;
   skill?: number;
+  /** Число потоков. Один поток с фиксированной глубиной даёт одинаковый результат при повторе. */
+  threads?: number;
+  /** Очистить хеш перед поиском — тоже ради повторяемости. */
+  clearHash?: boolean;
+  /** Каждая строка вывода движка (быстро меняется). */
   onInfo?: (lines: PvInfo[]) => void;
+  /** Вызывается, когда глубина досчитана для всех `expectedLines` вариантов. */
+  onDepth?: (lines: PvInfo[]) => void;
+  expectedLines?: number;
 }
 
 interface Job {
   opts: SearchOptions;
   resolve: (r: SearchResult) => void;
   lines: Map<number, PvInfo>;
+  byDepth: Map<number, Map<number, PvInfo>>;
+  /** Последний полностью досчитанный набор вариантов. */
+  complete: PvInfo[] | null;
+}
+
+/** Потоков для непрерывного анализа: все ядра, кроме одного (не больше 8). */
+export function analysisThreads(): number {
+  return Math.max(1, Math.min(8, (navigator.hardwareConcurrency || 2) - 1));
 }
 
 export function parseInfo(line: string): PvInfo | null {
@@ -76,7 +92,7 @@ export class Engine {
   private waiters: { test: (l: string) => boolean; resolve: () => void }[] = [];
   private job: Job | null = null;
   private queue: Promise<unknown> = Promise.resolve();
-  private current: { elo?: number; skill?: number; multipv: number } = { multipv: 1 };
+  private current: { elo?: number; skill?: number; multipv: number; threads: number } = { multipv: 1, threads: 1 };
   /** Увеличивается при каждом stop(): поиски, поставленные в очередь раньше, отменяются. */
   private generation = 0;
   name = '';
@@ -92,9 +108,8 @@ export class Engine {
         await this.transport.start();
         this.transport.send('uci');
         await this.waitFor((l) => l === 'uciok');
-        const threads = Math.max(1, Math.min(4, (navigator.hardwareConcurrency || 2) - 1));
         this.transport.send('setoption name UCI_Variant value janggi');
-        this.transport.send(`setoption name Threads value ${threads}`);
+        this.transport.send('setoption name Threads value 1');
         this.transport.send('setoption name Hash value 128');
         await this.isReady();
       })().catch((e) => {
@@ -118,10 +133,20 @@ export class Engine {
     if (info) {
       job.lines.set(info.multipv, info);
       job.opts.onInfo?.(sortedLines(job.lines));
+      let d = job.byDepth.get(info.depth);
+      if (!d) job.byDepth.set(info.depth, (d = new Map()));
+      d.set(info.multipv, info);
+      const expected = job.opts.expectedLines ?? job.opts.multipv ?? 1;
+      if (d.size >= expected) {
+        job.complete = sortedLines(d);
+        job.opts.onDepth?.(job.complete);
+      }
     } else if (line.startsWith('bestmove')) {
       const best = line.split(/\s+/)[1];
       this.job = null;
-      job.resolve({ bestmove: best && best !== '(none)' ? best : null, lines: sortedLines(job.lines) });
+      // Отдаём последний целиком досчитанный набор: в нём все варианты одной глубины.
+      const lines = job.complete && job.complete[0]?.pv[0] === best ? job.complete : sortedLines(job.lines);
+      job.resolve({ bestmove: best && best !== '(none)' ? best : null, lines });
     }
   }
 
@@ -153,7 +178,10 @@ export class Engine {
         this.transport.send(`setoption name Skill Level value ${opts.skill ?? 20}`);
       }
       if (multipv !== this.current.multipv) this.transport.send(`setoption name MultiPV value ${multipv}`);
-      this.current = { elo: opts.elo, skill: opts.skill, multipv };
+      const threads = opts.threads ?? 1;
+      if (threads !== this.current.threads) this.transport.send(`setoption name Threads value ${threads}`);
+      if (opts.clearHash) this.transport.send('setoption name Clear Hash');
+      this.current = { elo: opts.elo, skill: opts.skill, multipv, threads };
       await this.isReady();
       if (gen !== this.generation) return { bestmove: null, lines: [] };
       const moves = opts.moves?.length ? ` moves ${opts.moves.join(' ')}` : '';
@@ -164,7 +192,7 @@ export class Engine {
           ? `go depth ${opts.depth}`
           : `go movetime ${opts.movetime ?? 1000}`;
       return new Promise<SearchResult>((resolve) => {
-        this.job = { opts, resolve, lines: new Map() };
+        this.job = { opts, resolve, lines: new Map(), byDepth: new Map(), complete: null };
         this.transport.send(go);
       });
     };

@@ -10,9 +10,9 @@ import { EvalGraph } from './EvalGraph';
 import { SIDE_NAMES } from './pieces';
 
 export const REVIEW_DEPTHS = [
-  { id: 'fast', ru: 'Быстро (0,5 с на позицию)', movetime: 500 },
-  { id: 'normal', ru: 'Обычно (1,5 с)', movetime: 1500 },
-  { id: 'deep', ru: 'Глубоко (4 с)', movetime: 4000 },
+  { id: 'fast', ru: 'Быстро (глубина 12)', depth: 12 },
+  { id: 'normal', ru: 'Обычно (глубина 15)', depth: 15 },
+  { id: 'deep', ru: 'Глубоко (глубина 18)', depth: 18 },
 ] as const;
 
 interface Props {
@@ -22,7 +22,7 @@ interface Props {
   viewPly: number | null;
   progress: { done: number; total: number } | null;
   onSelect: (ply: number) => void;
-  onStart: (movetime: number) => void;
+  onStart: (depth: number) => void;
   onStop: () => void;
   onClose: () => void;
 }
@@ -30,7 +30,7 @@ interface Props {
 const COUNTED: Quality[] = ['inaccuracy', 'mistake', 'blunder'];
 
 export function ReviewPanel({ game, reviews, evals, viewPly, progress, onSelect, onStart, onStop, onClose }: Props) {
-  const [depth, setDepth] = useState<number>(1500);
+  const [depth, setDepth] = useState<number>(15);
   const all = Object.values(reviews);
   const n = game.history.length;
   const complete = n > 0 && all.length >= n;
@@ -55,7 +55,7 @@ export function ReviewPanel({ game, reviews, evals, viewPly, progress, onSelect,
         <div className="review-start">
           <select value={depth} onChange={(e) => setDepth(Number(e.target.value))}>
             {REVIEW_DEPTHS.map((d) => (
-              <option key={d.id} value={d.movetime}>
+              <option key={d.id} value={d.depth}>
                 {d.ru}
               </option>
             ))}

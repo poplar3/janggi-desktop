@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Evaluator, gameAtPly, makeReview, type MoveReview, type PositionEval } from './analysis/evaluator';
+import { Evaluator, gameAtPly, HINT_DEPTH, LIVE_DEPTH, MULTIPV, type MoveReview } from './analysis/evaluator';
 import { cpForCho, winPercent } from './analysis/quality';
 import { END_REASON_RU, Game } from './core/game';
-import { findGeneral, isPass, opposite, startFenWithSetups, uciToMove, type Move } from './core/rules';
-import { BOT_LEVELS, formatScore, getEngine } from './engine/engine';
+import { findGeneral, isPass, legalMoves, opposite, startFenWithSetups, uciToMove, type Move } from './core/rules';
+import { analysisThreads, BOT_LEVELS, formatScore, getEngine, type PvInfo } from './engine/engine';
 import { loadConfig, loadPrefs, saveConfig, savePrefs, type GameConfig } from './settings';
 import { AiPanel, ARROW_COLORS, REPLY_COLOR, type EngineStatus, type ShownLines } from './ui/AiPanel';
 import { Board, type Arrow } from './ui/Board';
@@ -16,24 +16,31 @@ import { ScorePanel } from './ui/ScorePanel';
 import { SIDE_NAMES } from './ui/pieces';
 import './App.css';
 
-/** Время на оценку одной позиции при «Оценке ходов» во время игры. */
-const LIVE_EVAL_MS = 500;
+/** Непрерывный анализ: варианты показываются не мельче этой глубины и не чаще, чем раз в столько мс. */
+const ANALYSIS_MIN_DEPTH = 10;
+const ANALYSIS_THROTTLE_MS = 800;
 
 function newGame(c: GameConfig) {
   return new Game(startFenWithSetups(c.choSetup, c.hanSetup));
 }
 
+/** Для разработки и тестов: ?fen=… открывает партию двух игроков с заданной позиции. */
+const DEV_PARAMS = import.meta.env.DEV ? new URLSearchParams(location.search) : null;
+const DEV_FEN = DEV_PARAMS?.get('fen') ?? null;
+/** ?bot=b — в позиции из ?fen= за Хана играет компьютер. */
+const DEV_BOT = DEV_PARAMS?.get('bot') as 'w' | 'b' | null;
+
 export default function App() {
-  const [config, setConfig] = useState<GameConfig>(loadConfig);
+  const [config, setConfig] = useState<GameConfig>(() => (DEV_FEN ? { ...loadConfig(), mode: DEV_BOT ? 'bot' : 'human', humanColor: DEV_BOT === 'w' ? 'b' : 'w' } : loadConfig()));
   const [prefs, setPrefs] = useState(loadPrefs);
-  const gameRef = useRef<Game>(newGame(config));
+  const gameRef = useRef<Game>(DEV_FEN ? new Game(DEV_FEN) : newGame(config));
   const [version, setVersion] = useState(0);
   const bump = () => setVersion((v) => v + 1);
   const game = gameRef.current;
 
   const [selected, setSelected] = useState<number | null>(null);
   const [flipped, setFlipped] = useState(config.mode === 'bot' && config.humanColor === 'b');
-  const [showNewGame, setShowNewGame] = useState(true);
+  const [showNewGame, setShowNewGame] = useState(!DEV_FEN);
   const [showRules, setShowRules] = useState(false);
   const [resultClosed, setResultClosed] = useState(false);
 
@@ -41,6 +48,7 @@ export default function App() {
   const [analysisOn, setAnalysisOn] = useState(false);
   const [lines, setLines] = useState<ShownLines | null>(null);
   const [thinking, setThinking] = useState<'bot' | 'hint' | 'eval' | null>(null);
+  const [hintDepth, setHintDepth] = useState(0);
   const token = useRef(0);
 
   // Разбор и оценка ходов
@@ -82,7 +90,7 @@ export default function App() {
     void (async () => {
       if (prefs.evalMoves && n > 0 && !reviewsRef.current[n]) {
         setThinking('eval');
-        const r = await evaluator.reviewMove(g, n, LIVE_EVAL_MS);
+        const r = await evaluator.reviewMove(g, n, LIVE_DEPTH);
         if (my !== token.current) return;
         if (r) setReviews((prev) => ({ ...prev, [n]: r }));
       }
@@ -113,12 +121,32 @@ export default function App() {
         bump();
       } else if (analysisOn) {
         setThinking(null);
+        // Показываем только полностью досчитанные глубины и не чаще раза в ANALYSIS_THROTTLE_MS,
+        // чтобы стрелки и оценка не мелькали.
+        let lastShown = 0;
+        let pending: PvInfo[] | null = null;
+        let timer: ReturnType<typeof setTimeout> | null = null;
+        const publish = () => {
+          timer = null;
+          if (!pending || my !== token.current) return;
+          setLines({ fen: posFen, turn, lines: pending, kind: 'analysis' });
+          lastShown = Date.now();
+          pending = null;
+        };
         void engine.search({
           fen,
           moves,
           infinite: true,
-          multipv: 3,
-          onInfo: (ls) => my === token.current && setLines({ fen: posFen, turn, lines: ls, kind: 'analysis' }),
+          multipv: MULTIPV,
+          expectedLines: Math.min(MULTIPV, legalMoves(g.position).length),
+          threads: analysisThreads(),
+          onDepth: (ls) => {
+            if (my !== token.current || (ls[0]?.depth ?? 0) < ANALYSIS_MIN_DEPTH) return;
+            pending = ls;
+            const wait = ANALYSIS_THROTTLE_MS - (Date.now() - lastShown);
+            if (wait <= 0) publish();
+            else if (!timer) timer = setTimeout(publish, wait);
+          },
         });
       } else {
         setThinking(null);
@@ -139,40 +167,35 @@ export default function App() {
     const posFen = g.fen;
     const turn = g.turn;
     setThinking('hint');
-    void engine
-      .search({
-        fen: g.startFen,
-        moves: g.uciMoves,
-        movetime: 2000,
-        multipv: 3,
-        onInfo: (ls) => my === token.current && setLines({ fen: posFen, turn, lines: ls, kind: 'hint' }),
-      })
-      .then((r) => {
+    setHintDepth(0);
+    // Подсказка считается до фиксированной глубины и кэшируется: повторное нажатие даёт тот же ответ,
+    // а оценка сыгранного хода опирается на тот же расчёт.
+    void evaluator
+      .evaluate(g, g.history.length, HINT_DEPTH, (d) => my === token.current && setHintDepth(d))
+      .then((ev) => {
         if (my !== token.current) return;
-        setLines({ fen: posFen, turn, lines: r.lines, kind: 'hint' });
         setThinking(null);
+        if (ev && !ev.terminal) setLines({ fen: posFen, turn, lines: ev.lines, kind: 'hint' });
       });
-  }, [engine, engineStatus.state, humanCanMove]);
+  }, [engine, evaluator, engineStatus.state, humanCanMove]);
 
-  const startReview = async (movetime: number) => {
+  const startReview = async (depth: number) => {
     const my = ++token.current;
     engine.stop();
     setThinking(null);
     const g = gameRef.current;
     const n = g.history.length;
-    setReviewProgress({ done: 0, total: n + 1 });
-    let prev: PositionEval | null = null;
-    for (let ply = 0; ply <= n; ply++) {
-      const ev = await evaluator.evaluate(g, ply, movetime);
+    setReviewProgress({ done: 0, total: n });
+    for (let ply = 1; ply <= n; ply++) {
+      const r = await evaluator.reviewMove(g, ply, depth);
       if (my !== token.current) return;
-      if (!ev) break;
-      if (prev) {
-        const r = makeReview(g, ply, prev, ev);
-        setReviews((x) => ({ ...x, [ply]: r }));
-      }
-      prev = ev;
-      setReviewProgress({ done: ply + 1, total: n + 1 });
+      if (!r) break;
+      setReviews((x) => ({ ...x, [ply]: r }));
+      setReviewProgress({ done: ply, total: n });
     }
+    // Оценка итоговой позиции — для графика
+    await evaluator.evaluate(g, n, depth);
+    if (my !== token.current) return;
     setReviewProgress(null);
   };
 
@@ -291,7 +314,11 @@ export default function App() {
   const shownEntry = shownPly > 0 ? game.history[shownPly - 1] : null;
   const targets = selected !== null && !viewing ? game.legalMoves().filter((m) => m.from === selected) : [];
   const shownResult = shownGame.result();
-  const checkSquare = !shownResult && shownGame.inCheck() ? findGeneral(shownGame.position.board, shownGame.turn) : null;
+  // Подсвечиваем генерала под шахом, в том числе получившего мат
+  const checkSquare =
+    (!shownResult || shownResult.reason === 'checkmate') && shownGame.inCheck()
+      ? findGeneral(shownGame.position.board, shownGame.turn)
+      : null;
   const canPass = humanCanMove && game.legalMoves().some(isPass);
 
   const shownLines = !viewing && lines && lines.fen === game.fen ? lines : null;
@@ -421,6 +448,7 @@ export default function App() {
               status={engineStatus}
               lines={shownLines}
               thinking={thinking}
+              hintDepth={hintDepth}
               botName={BOT_LEVELS.find((l) => l.id === config.level)?.name}
               analysisOn={analysisOn}
               evalMovesOn={prefs.evalMoves}

@@ -34,6 +34,10 @@ export interface PuzzleData {
   line: string[];
   /** Задача 박보: каждый ход решающего — шах. */
   checksOnly?: boolean;
+  /** Другие верные ходы решающего: с полухода at решение продолжается линией line. */
+  alts?: { at: number; line: string[] }[];
+  /** Номер задачи в источнике. */
+  number?: number;
   source?: PuzzleSource;
 }
 

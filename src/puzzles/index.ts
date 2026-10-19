@@ -1,4 +1,5 @@
 import bakbo from './bakbo.json';
+import classic from './classic.json';
 import own from './own.json';
 import { annotate, type Puzzle, type PuzzleData } from './annotate';
 
@@ -11,15 +12,19 @@ const OWN_SOURCE = {
   bakbo: { author: 'Задачи приложения', title: 'Составлена с помощью Fairy-Stockfish по правилам 박보 (каждый ход решающего — шах); решение проверено движком на единственность' },
 };
 
+/** Задача взята из корейского источника, а не составлена приложением. */
+export const isClassic = (p: PuzzleData) => p.id.startsWith('classic-');
+
 let cache: Puzzle[] | null = null;
 
 /** Все задачи, от простых к сложным. */
 export function allPuzzles(): Puzzle[] {
   if (cache) return cache;
-  const data = [...own, ...bakbo] as (Omit<PuzzleData, 'source'> & { origin: keyof typeof OWN_SOURCE })[];
+  const data = [...own, ...bakbo, ...classic] as (PuzzleData & { origin: keyof typeof OWN_SOURCE | 'classic' })[];
+  // Задачи из корейских источников несут ссылку на источник сами, остальные составлены приложением.
   const raw: PuzzleData[] = data.map(({ origin, ...d }) => ({
     ...d,
-    source: OWN_SOURCE[origin],
+    source: origin === 'classic' ? d.source : OWN_SOURCE[origin],
   }));
   cache = raw
     .map(annotate)

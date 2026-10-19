@@ -2,11 +2,34 @@ import { describe, expect, it } from 'vitest';
 import { Game } from '../core/game';
 import { annotate } from './annotate';
 import bakboJson from './bakbo.json';
+import classicJson from './classic.json';
 import ownJson from './own.json';
 import { allPuzzles } from '.';
 
-type Raw = { id: string; fen: string; goal: string; mateIn?: number; gain?: number; line: string[]; checksOnly?: boolean };
-const own = [...ownJson, ...bakboJson] as Raw[];
+type Raw = {
+  id: string;
+  fen: string;
+  goal: string;
+  mateIn?: number;
+  gain?: number;
+  line: string[];
+  checksOnly?: boolean;
+  alts?: { at: number; line: string[] }[];
+  source?: { author: string; url?: string };
+};
+const own = [...ownJson, ...bakboJson, ...classicJson] as Raw[];
+
+/** Линия ведёт к мату решающего за mateIn ходов. */
+function expectMate(fen: string, line: string[], mateIn: number) {
+  const g = new Game(fen);
+  const solver = g.turn;
+  for (const u of line) {
+    expect(g.result()).toBeNull();
+    g.playUci(u);
+  }
+  expect(g.result()).toEqual({ winner: solver, reason: 'checkmate' });
+  expect((line.length + 1) / 2).toBe(mateIn);
+}
 
 describe('задачи', () => {
   it('у каждой задачи уникальный id и позиция', () => {
@@ -33,6 +56,15 @@ describe('задачи', () => {
       expect((p.line.length + 1) / 2).toBe(p.mateIn);
     } else {
       expect(p.gain).toBeGreaterThanOrEqual(3);
+    }
+  });
+
+  it.each((classicJson as Raw[]).map((p) => [p.id, p] as const))('%s: источник указан, альтернативы тоже ведут к мату', (_, p) => {
+    expect(p.source?.url).toMatch(/^https:\/\/enky1\.blogspot\.com\//);
+    for (const a of p.alts ?? []) {
+      expect(a.at % 2).toBe(0);
+      expect(a.line[0]).not.toBe(p.line[a.at]);
+      expectMate(p.fen, [...p.line.slice(0, a.at), ...a.line], p.mateIn!);
     }
   });
 

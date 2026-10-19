@@ -69,13 +69,18 @@ FAIRY_STOCKFISH=<путь> node scripts/verify-lessons.mjs                      
 
 ```bash
 npm ci
-npm run fetch-engine   # Windows: скачивает Fairy-Stockfish с нейросетью для Чанги
+npm run fetch-engine   # Fairy-Stockfish с нейросетью для Чанги (Windows — скачивает, Linux — собирает)
 npm test               # проверка правил
 npx tauri build        # установщик в src-tauri/target/release/bundle
 ```
 
-Для Linux соберите Fairy-Stockfish из исходников (`make build ARCH=x86-64-modern largeboards=yes`) и укажите
-путь: `FAIRY_STOCKFISH=<путь> npm run fetch-engine`.
+Для Linux готовых сборок с нейросетью Чанги нет: `fetch-engine` скачивает исходники Fairy-Stockfish, достаёт сеть
+из сборки для Windows и собирает движок со встроенной сетью (нужны make, g++ и tar; `--rebuild` — пересобрать).
+Готовый движок можно указать так: `FAIRY_STOCKFISH=<путь> npm run fetch-engine`. Собранный в CI движок для Linux
+лежит в артефакте `fairy-stockfish-linux`.
+
+Проверить, что изменение настроек движка его усиливает, можно матчем:
+`FAIRY_STOCKFISH=<путь> node scripts/engine-match.mjs '{"Threads":3}' '{}' 10 300 1`.
 
 Интерфейс можно разрабатывать в браузере: `npm run engine-bridge` (мост к движку) и `npm run dev`.
 
@@ -85,7 +90,7 @@ npx tauri build        # установщик в src-tauri/target/release/bundle
 ## Лицензии
 
 - Код приложения — GNU GPL v3 (см. `LICENSE`).
-- Движок [Fairy-Stockfish](https://github.com/fairy-stockfish/Fairy-Stockfish) — GNU GPL v3; в Windows-сборке
-  используется версия со встроенной нейросетью janggi-9991472750de из
+- Движок [Fairy-Stockfish](https://github.com/fairy-stockfish/Fairy-Stockfish) — GNU GPL v3; используется
+  со встроенной нейросетью janggi-9991472750de из
   [Fairy-Stockfish-NNUE](https://github.com/fairy-stockfish/Fairy-Stockfish-NNUE).
 - Иероглифы фигур — подмножество шрифта Noto Serif KR, SIL Open Font License 1.1.

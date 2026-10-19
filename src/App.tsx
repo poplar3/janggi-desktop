@@ -112,7 +112,14 @@ export default function App() {
         const level = BOT_LEVELS.find((l) => l.id === config.level) ?? BOT_LEVELS[0];
         setThinking('bot');
         const startedAt = Date.now();
-        const r = await engine.search({ fen, moves, movetime: level.movetime, elo: level.elo, skill: level.skill });
+        const r = await engine.search({
+          fen,
+          moves,
+          movetime: level.movetime,
+          elo: level.elo,
+          skill: level.skill,
+          threads: level.allThreads ? analysisThreads() : 1,
+        });
         if (my !== token.current || !r.bestmove) return;
         // Небольшая пауза, чтобы ход бота был заметен
         await new Promise((res) => setTimeout(res, Math.max(0, 350 - (Date.now() - startedAt))));

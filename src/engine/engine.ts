@@ -110,7 +110,7 @@ export class Engine {
         await this.waitFor((l) => l === 'uciok');
         this.transport.send('setoption name UCI_Variant value janggi');
         this.transport.send('setoption name Threads value 1');
-        this.transport.send('setoption name Hash value 128');
+        this.transport.send('setoption name Hash value 256');
         await this.isReady();
       })().catch((e) => {
         this.ready = null;
@@ -222,6 +222,8 @@ export interface BotLevel {
   elo?: number;
   skill?: number;
   movetime: number;
+  /** Думать на всех ядрах (только для уровня без ограничений: на ограниченных сила задана Elo). */
+  allThreads?: boolean;
 }
 
 /**
@@ -239,7 +241,7 @@ export const BOT_LEVELS: BotLevel[] = [
   { id: 7, name: 'Мастер', rank: '3 단', elo: 2100, movetime: 1500 },
   { id: 8, name: 'Эксперт', rank: '5 단', elo: 2400, movetime: 2000 },
   { id: 9, name: 'Профессионал', rank: '7 단', elo: 2700, movetime: 3000 },
-  { id: 10, name: 'Максимум', rank: 'без ограничений', movetime: 5000 },
+  { id: 10, name: 'Максимум', rank: 'без ограничений', movetime: 5000, allThreads: true },
 ];
 
 /** Оценка с точки зрения Чо (положительная — перевес Чо). */

@@ -890,3 +890,109 @@ button.link {
   background: #f6eedc;
   border-radius: 10px;
 }
+
+/* ---------- Телефоны и узкие окна ---------- */
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Портрет: доска во всю ширину, панели под ней, страница прокручивается под шапкой. */
+@media (max-width: 760px) {
+  .app {
+    height: 100dvh;
+  }
+  .topbar {
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 6px 8px;
+  }
+  .brand {
+    font-size: 17px;
+    gap: 8px;
+  }
+  .brand .muted {
+    display: none;
+  }
+  .brand-mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+  }
+  .topbar nav {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 4px;
+  }
+  .topbar .btn {
+    padding: 5px 8px;
+    font-size: 14px;
+  }
+  .layout {
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 8px;
+    gap: 10px;
+  }
+  .board-area {
+    flex: none;
+    gap: 6px;
+  }
+  .board-wrap {
+    width: 100%;
+  }
+  .eval-bar {
+    width: 8px;
+  }
+  .side {
+    width: auto;
+    flex-shrink: 0;
+    overflow: visible;
+  }
+  .moves-panel {
+    flex: none;
+  }
+  .moves {
+    max-height: 220px;
+  }
+  .puzzles {
+    padding: 10px;
+  }
+  .segmented,
+  .puzzle-filters {
+    flex-wrap: wrap;
+  }
+  .puzzle-filters select {
+    flex: 1 1 140px;
+    min-width: 0;
+  }
+  .setup-picker {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .puzzle-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+/* Телефон боком: шапка тоньше, доска по высоте экрана, панель уже. */
+@media (max-height: 520px) and (orientation: landscape) {
+  .topbar {
+    padding: 4px 10px;
+  }
+  .brand .muted {
+    display: none;
+  }
+  .topbar .btn {
+    padding: 4px 8px;
+    font-size: 14px;
+  }
+  .layout {
+    padding: 8px;
+    gap: 10px;
+  }
+  .board-wrap {
+    width: min(100%, calc((100dvh - 60px) * 0.907));
+  }
+  .side {
+    width: 300px;
+  }
+}

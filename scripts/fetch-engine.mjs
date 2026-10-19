@@ -3,6 +3,8 @@
 // Linux: готовых сборок с нейросетью Чанги нет, поэтому движок собирается из исходников, а сеть
 //        берётся из той же сборки для Windows (она встроена в exe) и встраивается в бинарник.
 //        Нужны make, g++ и tar. FSF_SRC=<папка исходников> — собрать из уже скачанных исходников.
+// --android: то же для Android (arm64) компилятором из Android NDK (путь в ANDROID_NDK_HOME или NDK_HOME).
+//        Движок кладётся в APK как библиотека libfairystockfish.so — только такие файлы Android даёт запускать.
 // FAIRY_STOCKFISH=<путь> — взять готовый движок как есть.
 import { copyFileSync, chmodSync, cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -15,12 +17,12 @@ const NET_SIZE = 11261920;
 const RELEASE = `https://github.com/fairy-stockfish/Fairy-Stockfish-NNUE/releases/download/${NET}`;
 // Версия исходников, с которой совместим формат сети.
 const FSF_COMMIT = '9f778da667f6e07dae1e85d3e2ea204fc6dee94d';
-const dir = new URL('../src-tauri/engine/', import.meta.url);
+const isAndroid = process.argv.includes('--android');
+const isWin = !isAndroid && (process.platform === 'win32' || process.argv.includes('--windows'));
+const dir = new URL(isAndroid ? '../src-tauri/gen/android/app/src/main/jniLibs/arm64-v8a/' : '../src-tauri/engine/', import.meta.url);
 mkdirSync(dir, { recursive: true });
-copyFileSync(new URL('../LICENSE', import.meta.url), new URL('COPYING.txt', dir));
-
-const isWin = process.platform === 'win32' || process.argv.includes('--windows');
-const target = new URL(isWin ? 'fairy-stockfish.exe' : 'fairy-stockfish', dir);
+if (!isAndroid) copyFileSync(new URL('../LICENSE', import.meta.url), new URL('COPYING.txt', dir));
+const target = new URL(isAndroid ? 'libfairystockfish.so' : isWin ? 'fairy-stockfish.exe' : 'fairy-stockfish', dir);
 
 async function download(url) {
   console.log(`Скачиваю ${url}`);
@@ -41,7 +43,16 @@ function extractNet(exe) {
   throw new Error(`Сеть ${NET} не найдена в сборке для Windows`);
 }
 
-async function buildLinux() {
+/** Компилятор из Android NDK: make сам выбирает aarch64-linux-android21-clang++ при COMP=ndk. */
+function ndkToolchain() {
+  const ndk = process.env.ANDROID_NDK_HOME || process.env.NDK_HOME || process.env.ANDROID_NDK_LATEST_HOME;
+  if (!ndk) throw new Error('Не найден Android NDK: укажите путь в ANDROID_NDK_HOME');
+  const bin = join(ndk, 'toolchains', 'llvm', 'prebuilt', process.platform === 'darwin' ? 'darwin-x86_64' : 'linux-x86_64', 'bin');
+  if (!existsSync(bin)) throw new Error(`В NDK нет компиляторов: ${bin}`);
+  return bin;
+}
+
+async function buildFromSource() {
   const work = mkdtempSync(join(tmpdir(), 'fsf-'));
   let src = process.env.FSF_SRC;
   if (src) {
@@ -58,7 +69,18 @@ async function buildLinux() {
   writeFileSync(h, readFileSync(h, 'utf8').replace(/(#define EvalFileDefaultName\s+)"[^"]+"/, `$1"${NET}.nnue"`));
   // load_net= — не скачивать стандартную шахматную сеть: нужная уже лежит рядом.
   console.log('Собираю Fairy-Stockfish…');
-  execFileSync('make', ['-j', String(availableParallelism()), 'build', 'ARCH=x86-64-modern', 'largeboards=yes', 'nnue=yes', 'load_net='], { cwd: src, stdio: ['ignore', 'ignore', 'inherit'] });
+  const args = ['-j', String(availableParallelism()), 'build', 'largeboards=yes', 'nnue=yes', 'load_net='];
+  let env = process.env;
+  if (isAndroid) {
+    const bin = ndkToolchain();
+    args.push('ARCH=armv8', 'COMP=ndk');
+    env = { ...env, PATH: `${bin}:${env.PATH}` };
+    execFileSync('make', args, { cwd: src, env, stdio: ['ignore', 'ignore', 'inherit'] });
+    execFileSync(join(bin, 'llvm-strip'), ['stockfish'], { cwd: src });
+  } else {
+    args.push('ARCH=x86-64-modern');
+    execFileSync('make', args, { cwd: src, env, stdio: ['ignore', 'ignore', 'inherit'] });
+  }
   copyFileSync(join(src, 'stockfish'), target);
 }
 
@@ -67,7 +89,7 @@ if (process.env.FAIRY_STOCKFISH) {
 } else if (isWin) {
   writeFileSync(target, await download(`${RELEASE}/fairy-stockfish_x86-64-modern.exe`));
 } else if (!existsSync(target) || process.argv.includes('--rebuild')) {
-  await buildLinux();
+  await buildFromSource();
 }
 if (!isWin) chmodSync(target, 0o755);
 console.log(`Движок: ${target.pathname}`);

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Game } from '../core/game';
 import { formatMove } from '../core/notation';
 import { findGeneral, isPass, moveToUci, squareName, typeOf, uciToMove, type Move } from '../core/rules';
-import { allPuzzles, CONCEPTS, LEVELS, loadSolved, saveSolved, type ConceptId, type Puzzle } from '../puzzles';
+import { allPuzzles, CONCEPTS, isClassic, LEVELS, loadSolved, saveSolved, type ConceptId, type Puzzle } from '../puzzles';
 import { Board, type Arrow } from './Board';
 import { PIECE_NAMES, SIDE_NAMES, type PieceStyle } from './pieces';
 
@@ -20,6 +20,7 @@ export function PuzzlesView({ style, onPlayFrom }: Props) {
   const [current, setCurrent] = useState<Puzzle | null>(null);
   const [level, setLevel] = useState<number | null>(null);
   const [concept, setConcept] = useState<ConceptId | ''>('');
+  const [origin, setOrigin] = useState<'' | 'classic' | 'own'>('');
 
   const markSolved = (id: string, clean: boolean) => {
     setSolved((s) => {
@@ -47,7 +48,12 @@ export function PuzzlesView({ style, onPlayFrom }: Props) {
   }
 
   const usedConcepts = (Object.keys(CONCEPTS) as ConceptId[]).filter((c) => puzzles.some((p) => p.concepts.includes(c)));
-  const list = puzzles.filter((p) => (level === null || p.level.n === level) && (!concept || p.concepts.includes(concept)));
+  const list = puzzles.filter(
+    (p) =>
+      (level === null || p.level.n === level) &&
+      (!concept || p.concepts.includes(concept)) &&
+      (!origin || (origin === 'classic') === isClassic(p)),
+  );
   const solvedCount = puzzles.filter((p) => solved[p.id]).length;
 
   return (
@@ -79,6 +85,11 @@ export function PuzzlesView({ style, onPlayFrom }: Props) {
               </option>
             ))}
           </select>
+          <select value={origin} onChange={(e) => setOrigin(e.target.value as '' | 'classic' | 'own')} aria-label="Источник">
+            <option value="">Все источники</option>
+            <option value="classic">Корейские задачи (박보장기)</option>
+            <option value="own">Составленные приложением</option>
+          </select>
         </div>
       </div>
       {concept && <div className="panel concept-about"><b>{CONCEPTS[concept].ru}.</b> {CONCEPTS[concept].about}</div>}
@@ -91,6 +102,7 @@ export function PuzzlesView({ style, onPlayFrom }: Props) {
             <span className={`lvl lvl-${p.level.n}`}>{p.level.ru}</span>
             <span className="muted small">{p.concepts.map((c) => CONCEPTS[c].ru).join(', ')}</span>
             <span className="muted small">Ход {p.solver === 'w' ? 'Чо' : 'Хана'}</span>
+            {isClassic(p) && <span className="muted small">박보장기, № {p.number}</span>}
           </button>
         ))}
         {list.length === 0 && <div className="muted">Нет задач с такими условиями.</div>}
@@ -120,6 +132,8 @@ function PuzzleSolver({ puzzle, number, style, onSolved, onBack, onNext, onPlayF
   const [errors, setErrors] = useState(0);
   const [usedHelp, setUsedHelp] = useState(false);
   const [wrongMove, setWrongMove] = useState<Move | null>(null);
+  // Решение, по которому идёт игрок: основное или одна из равноценных альтернатив.
+  const [line, setLine] = useState(puzzle.line);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const later = (ms: number, f: () => void) => timers.current.push(setTimeout(f, ms));
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
@@ -131,6 +145,7 @@ function PuzzleSolver({ puzzle, number, style, onSolved, onBack, onNext, onPlayF
   const reset = () => {
     timers.current.forEach(clearTimeout);
     setGame(new Game(puzzle.fen));
+    setLine(puzzle.line);
     setStatus('play');
     setSelected(null);
     setHintLevel(0);
@@ -146,10 +161,17 @@ function PuzzleSolver({ puzzle, number, style, onSolved, onBack, onNext, onPlayF
       bump();
       return;
     }
-    const expected = puzzle.line[step];
-    let ok = moveToUci(m) === expected;
+    let cur = line;
+    let ok = moveToUci(m) === cur[step];
+    // Равноценный другой ход: дальше решение идёт по его продолжению.
+    const alt = ok ? undefined : puzzle.alts?.find((a) => a.at === step && a.line[0] === moveToUci(m));
+    if (alt) {
+      cur = [...line.slice(0, step), ...alt.line];
+      setLine(cur);
+      ok = true;
+    }
     // На последнем ходу засчитывается любой мат.
-    if (!ok && puzzle.goal === 'mate' && step === puzzle.line.length - 1) {
+    if (!ok && puzzle.goal === 'mate' && step === cur.length - 1) {
       const probe = new Game(puzzle.fen);
       for (const u of g.uciMoves) probe.playUci(u);
       probe.play(m);
@@ -165,13 +187,13 @@ function PuzzleSolver({ puzzle, number, style, onSolved, onBack, onNext, onPlayF
     setWrongMove(null);
     g.play(m);
     setHintLevel(0);
-    if (step + 1 >= puzzle.line.length) {
+    if (step + 1 >= cur.length) {
       setStatus('solved');
       onSolved(errors === 0 && !usedHelp);
     } else {
       setStatus('reply');
       later(550, () => {
-        g.playUci(puzzle.line[step + 1]);
+        g.playUci(cur[step + 1]);
         setStatus('play');
         bump();
       });
@@ -194,6 +216,7 @@ function PuzzleSolver({ puzzle, number, style, onSolved, onBack, onNext, onPlayF
     timers.current.forEach(clearTimeout);
     const g = new Game(puzzle.fen);
     setGame(g);
+    setLine(puzzle.line);
     setStatus('shown');
     setUsedHelp(true);
     setSelected(null);
@@ -221,7 +244,7 @@ function PuzzleSolver({ puzzle, number, style, onSolved, onBack, onNext, onPlayF
   };
 
   // Подсказки: для первого хода — приём, фигура, ход; для следующих — фигура и ход.
-  const expectedUci = step >= 0 ? puzzle.line[step] : undefined;
+  const expectedUci = step >= 0 ? line[step] : undefined;
   const expectedMove = expectedUci ? uciToMove(expectedUci) : null;
   const hintTexts: string[] = [];
   if (expectedMove && solving) {
@@ -245,7 +268,7 @@ function PuzzleSolver({ puzzle, number, style, onSolved, onBack, onNext, onPlayF
   const checkSquare = (!result || result.reason === 'checkmate') && game.inCheck() ? findGeneral(game.position.board, game.turn) : null;
   const targets = selected !== null ? game.legalMoves().filter((m) => m.from === selected) : [];
   const done = status === 'solved' || status === 'shown' || status === 'free';
-  const animating = status === 'shown' && game.history.length < puzzle.line.length;
+  const animating = status === 'shown' && game.history.length < line.length;
 
   return (
     <main className="layout">
@@ -383,6 +406,12 @@ function PuzzleSolver({ puzzle, number, style, onSolved, onBack, onNext, onPlayF
             <div className="muted small puzzle-source">
               Источник: {puzzle.source.author}
               {puzzle.source.title ? `. ${puzzle.source.title}` : ''}
+              {puzzle.source.url && (
+                <>
+                  {'. '}
+                  <span className="source-url">{puzzle.source.url}</span>
+                </>
+              )}
             </div>
           )}
         </div>

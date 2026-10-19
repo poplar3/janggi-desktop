@@ -1,8 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { Game } from '../core/game';
 import { annotate } from './annotate';
-import own from './own.json';
+import bakboJson from './bakbo.json';
+import ownJson from './own.json';
 import { allPuzzles } from '.';
+
+type Raw = { id: string; fen: string; goal: string; mateIn?: number; gain?: number; line: string[]; checksOnly?: boolean };
+const own = [...ownJson, ...bakboJson] as Raw[];
 
 describe('задачи', () => {
   it('у каждой задачи уникальный id и позиция', () => {
@@ -20,6 +24,10 @@ describe('задачи', () => {
       g.playUci(u);
     }
     expect(p.line.length % 2).toBe(1);
+    if (p.checksOnly) {
+      // 박보: каждый ход решающего объявляет шах.
+      g.history.forEach((h, i) => i % 2 === 0 && expect(h.check, `${p.id}: ход ${i + 1}`).toBe(true));
+    }
     if (p.goal === 'mate') {
       expect(g.result()).toEqual({ winner: solver, reason: 'checkmate' });
       expect((p.line.length + 1) / 2).toBe(p.mateIn);

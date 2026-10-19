@@ -1,3 +1,4 @@
+import bakbo from './bakbo.json';
 import own from './own.json';
 import { annotate, type Puzzle, type PuzzleData } from './annotate';
 
@@ -7,6 +8,7 @@ export { CONCEPTS, type ConceptId } from './concepts';
 const OWN_SOURCE = {
   game: { author: 'Задачи приложения', title: 'Позиция из партии Fairy-Stockfish, решение проверено движком на единственность' },
   compose: { author: 'Задачи приложения', title: 'Позиция с небольшим числом фигур, составленная с помощью Fairy-Stockfish; решение проверено движком на единственность' },
+  bakbo: { author: 'Задачи приложения', title: 'Составлена с помощью Fairy-Stockfish по правилам 박보 (каждый ход решающего — шах); решение проверено движком на единственность' },
 };
 
 let cache: Puzzle[] | null = null;
@@ -14,7 +16,8 @@ let cache: Puzzle[] | null = null;
 /** Все задачи, от простых к сложным. */
 export function allPuzzles(): Puzzle[] {
   if (cache) return cache;
-  const raw: PuzzleData[] = (own as (Omit<PuzzleData, 'source'> & { origin: 'game' | 'compose' })[]).map(({ origin, ...d }) => ({
+  const data = [...own, ...bakbo] as (Omit<PuzzleData, 'source'> & { origin: keyof typeof OWN_SOURCE })[];
+  const raw: PuzzleData[] = data.map(({ origin, ...d }) => ({
     ...d,
     source: OWN_SOURCE[origin],
   }));

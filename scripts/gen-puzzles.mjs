@@ -3,6 +3,8 @@
 // и каждая задача проверяется на единственность решения.
 // В режиме MODE=compose вместо партий перебираются случайные позиции с небольшим числом фигур
 // (как в составленных задачах 묘수풀이) и в них ищутся маты в 2–4 хода.
+// В режиме MODE=bakbo составляются задачи по канону 박보: каждый ход решающего — шах,
+// мат в MIN_MATE–MAX_MATE ходов (по умолчанию 3–7), позиции с большим числом фигур.
 // Использование: FAIRY_STOCKFISH=<путь> [MODE=compose] node scripts/gen-puzzles.mjs [число_партий|число_позиций] [выход.json]
 import { Engine, isPassUci } from './uci-engine.mjs';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
@@ -12,7 +14,8 @@ const GAMES = Number(process.argv[2] ?? 40);
 const OUT = process.argv[3] ?? new URL('../src/puzzles/generated.json', import.meta.url).pathname;
 const WORKERS = Number(process.env.WORKERS ?? 4);
 const MODE = process.env.MODE ?? 'games';
-const MIN_MATE = Number(process.env.MIN_MATE ?? 2);
+const MIN_MATE = Number(process.env.MIN_MATE ?? (MODE === 'bakbo' ? 3 : 2));
+const MAX_MATE = Number(process.env.MAX_MATE ?? (MODE === 'bakbo' ? 7 : 4));
 
 const vite = await createServer({ server: { middlewareMode: true, hmr: false }, appType: 'custom', logLevel: 'error' });
 const R = await vite.ssrLoadModule('/src/core/rules.ts');
@@ -23,8 +26,11 @@ const rnd = (n) => Math.floor(Math.random() * n);
 const material = (board, c) => R.materialPoints(board, c) - (c === 'b' ? R.HAN_BONUS : 0);
 const fenOf = (g) => R.toFen({ ...g.position, halfmove: 0, fullmove: 1 });
 
-/** Мат в N с единственным решением на каждом ходе решающего (кроме последнего). */
-async function verifyMate(eng, fen, n) {
+/**
+ * Мат в N с единственным решением на каждом ходе решающего (кроме последнего).
+ * checksOnly — правило 박보: каждый ход решающего должен объявлять шах.
+ */
+async function verifyMate(eng, fen, n, checksOnly = false) {
   const g = new Game(fen);
   const solver = g.turn;
   const line = [];
@@ -36,7 +42,8 @@ async function verifyMate(eng, fen, n) {
     if (left > 1 && ls[1] && ls[1].score.mate !== undefined && ls[1].score.mate > 0 && ls[1].score.mate <= left) return null;
     const mv = top.pv[0];
     if (isPassUci(mv)) return null;
-    g.playUci(mv);
+    const h = g.playUci(mv);
+    if (checksOnly && !h.check) return null;
     line.push(mv);
     const res = g.result();
     if (res) return res.reason === 'checkmate' && res.winner === solver && left === 1 ? line : null;
@@ -174,29 +181,51 @@ function randomPosition() {
   return R.toFen(pos);
 }
 
+/** Позиция для 박보: у защиты дворец со стражами и несколько фигур, у нападения от трёх до шести фигур. */
+function randomBakbo() {
+  const att = Math.random() < 0.5 ? 'w' : 'b';
+  const def = R.opposite(att);
+  const board = Array(90).fill(null);
+  const put = (t, c) => {
+    const s = pickFree(board, t === 'K' ? PALACE[c] : squaresFor(t, c));
+    if (s >= 0) board[s] = c === 'w' ? t : t.toLowerCase();
+  };
+  put('K', def);
+  put('K', att);
+  for (let i = 1 + rnd(2); i > 0; i--) put('A', def);
+  const defPool = ['P', 'P', 'P', 'N', 'N', 'B', 'B', 'C', 'C', 'R', 'R'];
+  for (let i = 1 + rnd(4); i > 0; i--) put(defPool.splice(rnd(defPool.length), 1)[0], def);
+  for (let i = rnd(3); i > 0; i--) put('A', att);
+  const attPool = ['R', 'R', 'C', 'C', 'N', 'N', 'B', 'B', 'P', 'P', 'P', 'P'];
+  for (let i = 3 + rnd(4); i > 0; i--) put(attPool.splice(rnd(attPool.length), 1)[0], att);
+  if (R.inCheck(board, def) || R.inCheck(board, att) || R.generalsFacing(board)) return null;
+  return R.toFen({ board, turn: att, halfmove: 0, fullmove: 1 });
+}
+
 let positionsLeft = GAMES;
 async function composer(id) {
   const eng = new Engine();
   await eng.init();
   while (positionsLeft-- > 0) {
-    const fen = randomPosition();
+    const bakbo = MODE === 'bakbo';
+    const fen = bakbo ? randomBakbo() : randomPosition();
     if (!fen) continue;
     const key = fen.split(' ').slice(0, 2).join(' ');
     if (seen.has(key)) continue;
-    const quick = await eng.search(fen, 8, 1);
+    const quick = await eng.search(fen, bakbo ? 12 : 8, 1);
     const top = quick[0];
-    if (!top || top.score.mate === undefined || top.score.mate < MIN_MATE || top.score.mate > 4) continue;
-    const line = await verifyMate(eng, fen, top.score.mate);
+    if (!top || top.score.mate === undefined || top.score.mate < MIN_MATE || top.score.mate > MAX_MATE) continue;
+    const line = await verifyMate(eng, fen, top.score.mate, bakbo);
     if (!line) continue;
     seen.add(key);
-    found.push({ fen, goal: 'mate', mateIn: top.score.mate, line, game: 'compose' });
-    console.log(`[${id}] этюд, мат в ${top.score.mate}: ${fen} ${line.join(' ')}`);
+    found.push({ fen, goal: 'mate', mateIn: top.score.mate, line, game: bakbo ? 'bakbo' : 'compose' });
+    console.log(`[${id}] ${bakbo ? '박보' : 'этюд'}, мат в ${top.score.mate}: ${fen} ${line.join(' ')}`);
     if (found.length % 5 === 0) writeFileSync(OUT, JSON.stringify(found, null, 1));
   }
   eng.quit();
 }
 
-await Promise.all(Array.from({ length: WORKERS }, (_, i) => (MODE === 'compose' ? composer(i) : worker(i))));
+await Promise.all(Array.from({ length: WORKERS }, (_, i) => (MODE === 'compose' || MODE === 'bakbo' ? composer(i) : worker(i))));
 writeFileSync(OUT, JSON.stringify(found, null, 1));
 await vite.close();
 console.log(`Готово: ${found.length} задач в ${OUT}`);

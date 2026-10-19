@@ -1,11 +1,14 @@
 // Отбор сбалансированного набора задач из сырого вывода gen-puzzles.mjs в src/puzzles/own.json.
 // Использование: node scripts/select-puzzles.mjs сырой1.json [сырой2.json …]
+// Задачи 박보 (MODE=bakbo в gen-puzzles.mjs) отбираются отдельно в src/puzzles/bakbo.json:
+//   BAKBO=1 node scripts/select-puzzles.mjs сырой-bakbo.json
 import { readFileSync, writeFileSync } from 'node:fs';
 import { createServer } from 'vite';
 
-const OUT = new URL('../src/puzzles/own.json', import.meta.url).pathname;
+const BAKBO = !!process.env.BAKBO;
+const OUT = new URL(BAKBO ? '../src/puzzles/bakbo.json' : '../src/puzzles/own.json', import.meta.url).pathname;
 /** Не больше стольких задач с одним главным приёмом на одном уровне. */
-const PER_BUCKET = 10;
+const PER_BUCKET = process.env.BAKBO ? 25 : 10;
 /** Не больше стольких задач из одной партии. */
 const PER_GAME = 2;
 
@@ -29,8 +32,9 @@ raw.sort((a, b) => b.line.length - a.line.length || Math.random() - 0.5);
 for (const d of raw) {
   const key = d.fen.split(' ').slice(0, 2).join(' ');
   if (seen.has(key)) continue;
-  if (d.game && d.game !== 'compose' && (perGame.get(d.game) ?? 0) >= PER_GAME) continue;
-  const data = { id: 'own-' + hash(key), origin: d.game === 'compose' ? 'compose' : 'game', fen: d.fen, goal: d.goal, ...(d.mateIn ? { mateIn: d.mateIn } : {}), ...(d.gain ? { gain: d.gain } : {}), line: d.line };
+  if (BAKBO !== (d.game === 'bakbo')) continue;
+  if (d.game && d.game !== 'compose' && d.game !== 'bakbo' && (perGame.get(d.game) ?? 0) >= PER_GAME) continue;
+  const data = { id: (BAKBO ? 'bakbo-' : 'own-') + hash(key), origin: d.game === 'compose' || d.game === 'bakbo' ? d.game : 'game', fen: d.fen, ...(BAKBO ? { checksOnly: true } : {}), goal: d.goal, ...(d.mateIn ? { mateIn: d.mateIn } : {}), ...(d.gain ? { gain: d.gain } : {}), line: d.line };
   let p;
   try {
     p = annotate(data);

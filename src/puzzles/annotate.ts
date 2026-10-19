@@ -32,6 +32,8 @@ export interface PuzzleData {
   gain?: number;
   /** Решение: ходы решающего и лучшие ответы соперника, в UCI. */
   line: string[];
+  /** Задача 박보: каждый ход решающего — шах. */
+  checksOnly?: boolean;
   source?: PuzzleSource;
 }
 
@@ -123,6 +125,7 @@ export function annotate(d: PuzzleData): Puzzle {
   const concepts: ConceptId[] = [];
   const add = (c: ConceptId) => !concepts.includes(c) && concepts.push(c);
   let screen = false;
+  if (d.checksOnly) add('check-chain');
 
   // Жертва: соперник по ходу решения забирает фигуру, и решающий в этот момент в минусе по материалу.
   let balance = 0;
@@ -178,8 +181,9 @@ export function annotate(d: PuzzleData): Puzzle {
       ? `Мат в ${n} ${plural(n, 'ход', 'хода', 'ходов')}`
       : `Выигрыш материала (+${formatPoints(d.gain ?? 0)})`;
   const side = solver === 'w' ? 'Чо' : 'Хана';
-  const description =
-    d.goal === 'mate'
+  const description = d.checksOnly
+    ? `Ход ${side}. Задача 박보: поставьте мат в ${n} ${plural(n, 'ход', 'хода', 'ходов')}, объявляя шах каждым ходом.`
+    : d.goal === 'mate'
       ? `Ход ${side}. Поставьте мат в ${n} ${plural(n, 'ход', 'хода', 'ходов')}${n > 1 ? ' при любой защите соперника' : ''}.`
       : `Ход ${side}. Найдите ход, после которого вы выигрываете материал при лучшей защите соперника.`;
 
@@ -203,6 +207,7 @@ function formatPoints(n: number) {
 function explain(d: PuzzleData, hist: HistoryEntry[], solver: Color, concepts: ConceptId[], screen: boolean) {
   const parts: string[] = [];
   const first = hist[0];
+  if (d.checksOnly) parts.push(`Все ${Math.ceil(hist.length / 2)} ${plural(Math.ceil(hist.length / 2), 'ход', 'хода', 'ходов')} решения — шахи, поэтому у соперника каждый раз выбор только между защитами от шаха.`);
   if (concepts.includes('sacrifice')) {
     const taken = hist.find((h, i) => i % 2 === 1 && h.captured);
     if (taken?.captured) parts.push(`Решающий ход строится на жертве: соперник забирает ${accus(typeOf(taken.captured))}, но это не спасает.`);

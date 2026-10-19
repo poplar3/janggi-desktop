@@ -11,6 +11,7 @@ import { Modal } from './ui/Modal';
 import { MoveList } from './ui/MoveList';
 import { NewGameDialog } from './ui/NewGameDialog';
 import { PuzzlesView } from './ui/PuzzlesView';
+import { TrainingView } from './ui/TrainingView';
 import { ReviewPanel } from './ui/ReviewPanel';
 import { RulesDialog } from './ui/RulesDialog';
 import { ScorePanel } from './ui/ScorePanel';
@@ -43,7 +44,10 @@ export default function App() {
   const [flipped, setFlipped] = useState(config.mode === 'bot' && config.humanColor === 'b');
   const [showNewGame, setShowNewGame] = useState(!DEV_FEN);
   const [showRules, setShowRules] = useState(false);
-  const [view, setView] = useState<'game' | 'puzzles'>(DEV_PARAMS?.get('view') === 'puzzles' ? 'puzzles' : 'game');
+  const [view, setView] = useState<'game' | 'puzzles' | 'training'>(() => {
+    const v = DEV_PARAMS?.get('view');
+    return v === 'puzzles' || v === 'training' ? v : 'game';
+  });
   const [resultClosed, setResultClosed] = useState(false);
 
   const [engineStatus, setEngineStatus] = useState<EngineStatus>({ state: 'loading' });
@@ -377,7 +381,7 @@ export default function App() {
           <button className={`btn${view === 'puzzles' ? ' active' : ''}`} onClick={() => setView('puzzles')}>
             Задачи
           </button>
-          <button className="btn" disabled title="Появится в следующей версии">
+          <button className={`btn${view === 'training' ? ' active' : ''}`} onClick={() => setView('training')}>
             Обучение
           </button>
         </nav>
@@ -389,6 +393,7 @@ export default function App() {
           onPlayFrom={(fen, human) => startGame({ ...config, mode: 'bot', humanColor: human }, fen)}
         />
       )}
+      {view === 'training' && <TrainingView style={config.pieceStyle} />}
       {view === 'game' && (
       <main className="layout">
         <div className="board-area">

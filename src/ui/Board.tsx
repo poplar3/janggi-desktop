@@ -1,3 +1,4 @@
+import { useLayoutEffect, useRef } from 'react';
 import {
   FILES,
   FILE_LETTERS,
@@ -13,6 +14,8 @@ import {
 import { PieceDefs, PieceView, type PieceStyle } from './pieces';
 
 export const CELL = 64;
+/** Длительность анимации хода, мс. */
+const MOVE_MS = 260;
 const MARGIN = 56;
 const W = (FILES - 1) * CELL + 2 * MARGIN;
 const H = (RANKS - 1) * CELL + 2 * MARGIN;
@@ -49,6 +52,25 @@ export function Board({ board, style, flipped, selected, targets, lastMove, chec
   };
   const pt = (f: number, r: number) => pos(sq(f, r));
 
+  // Анимация хода: фигура на поле назначения выезжает с исходного поля. Двигается одна маленькая
+  // группа SVG через Web Animations, без перерисовки всей доски.
+  const pieceEls = useRef(new Map<number, SVGGElement>());
+  const animated = useRef<Move | null>(lastMove);
+  useLayoutEffect(() => {
+    if (lastMove === animated.current) return;
+    animated.current = lastMove;
+    if (!lastMove || lastMove.from === lastMove.to) return;
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    const el = pieceEls.current.get(lastMove.to);
+    if (!el?.animate) return;
+    const a = pos(lastMove.from), b = pos(lastMove.to);
+    el.animate([{ transform: `translate(${a.x - b.x}px, ${a.y - b.y}px)` }, { transform: 'translate(0, 0)' }], {
+      duration: MOVE_MS,
+      easing: 'cubic-bezier(0.25, 0.8, 0.35, 1)',
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastMove]);
+
   const grid = (() => {
     const lines: string[] = [];
     for (let f = 0; f < FILES; f++) {
@@ -69,6 +91,11 @@ export function Board({ board, style, flipped, selected, targets, lastMove, chec
   const facing = generalsFacing(board);
   const wg = findGeneral(board, 'w');
   const bg = findGeneral(board, 'b');
+  // Походившая фигура рисуется последней, чтобы во время анимации ехать поверх остальных
+  // (пушка перепрыгивает через фигуры).
+  const moved = lastMove && lastMove.from !== lastMove.to ? lastMove.to : -1;
+  const pieceOrder = board.map((_, s) => s).filter((s) => s !== moved);
+  if (moved >= 0) pieceOrder.push(moved);
   const targetSet = new Map(targets.map((m) => [m.to, m]));
 
   return (
@@ -126,11 +153,18 @@ export function Board({ board, style, flipped, selected, targets, lastMove, chec
         return <line className="bikjang-line" x1={a.x} y1={a.y} x2={b.x} y2={b.y} />;
       })()}
 
-      {board.map((p, s) => {
+      {pieceOrder.map((s) => {
+        const p = board[s];
         if (!p) return null;
         const { x, y } = pos(s);
         return (
-          <g key={s}>
+          <g
+            key={s}
+            ref={(el) => {
+              if (el) pieceEls.current.set(s, el);
+              else pieceEls.current.delete(s);
+            }}
+          >
             {selected === s && <circle cx={x} cy={y} r={36} fill="none" stroke="#2f6fd6" strokeWidth={5} />}
             <PieceView piece={p} style={style} x={x} y={y} />
           </g>

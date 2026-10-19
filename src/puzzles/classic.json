@@ -1,0 +1,1184 @@
+[
+ {
+  "id": "classic-02",
+  "origin": "classic",
+  "number": 2,
+  "fen": "3k5/9/3PPP3/4P4/9/5P3/9/4CK1n1/3A2r2/5A3 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "g2f2",
+   "f1f2",
+   "h3g1"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 2",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-03",
+  "origin": "classic",
+  "number": 3,
+  "fen": "4k1C2/9/3RPP3/9/1B4P2/7P1/6n2/3KB1n1c/3NC4/2R6 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "g3f1",
+   "e3c6",
+   "g4e5"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 3",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-04",
+  "origin": "classic",
+  "number": 4,
+  "fen": "4k4/R8/3PP4/1B7/2p6/9/3RN4/1nr1CC3/3KA4/2r2AN2 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "c1d1",
+   "e2d1",
+   "c3c2",
+   "d2d3",
+   "c2d2",
+   "d1d2",
+   "b3c1"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 4",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-05",
+  "origin": "classic",
+  "number": 5,
+  "fen": "3k5/5r3/R2PP4/9/9/5B3/9/1n7/2p6/3KC4 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "c2d2",
+   "f5d2",
+   "f9f3"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 5",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-06",
+  "origin": "classic",
+  "number": 6,
+  "fen": "3k5/R4RN2/4c4/N1P6/3B5/9/4r4/8B/1n3K2C/7c1 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 5,
+  "line": [
+   "b2d1",
+   "f2f1",
+   "e4e1",
+   "f1f2",
+   "e1e3",
+   "f2f1",
+   "e3d3",
+   "f1e1",
+   "d1e3"
+  ],
+  "alts": [
+   {
+    "at": 0,
+    "line": [
+     "b2d3",
+     "f2f3",
+     "e4e3",
+     "f3f2",
+     "e3e1",
+     "f2f3",
+     "e1d1",
+     "f3e3",
+     "d3e5"
+    ]
+   }
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 6",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-08",
+  "origin": "classic",
+  "number": 8,
+  "fen": "4kc3/9/3PPP3/3R5/9/2bn5/2C3b2/3A5/2p1A4/R2KC1r2 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 5,
+  "line": [
+   "c2d2",
+   "d3d2",
+   "d5c3",
+   "c4c2",
+   "f10f3",
+   "e2f2",
+   "c5e2",
+   "f2f3",
+   "g1e1"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 8",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-09",
+  "origin": "classic",
+  "number": 9,
+  "fen": "4k4/8R/3PPP3/9/b8/9/4P1p1B/c8/cr1A2r2/4NK3 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 5,
+  "line": [
+   "a6c3",
+   "d2d3",
+   "b2e2",
+   "d3e2",
+   "g2f2",
+   "i4f2",
+   "a3f3",
+   "f2i4",
+   "f3d1"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 9",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-11",
+  "origin": "classic",
+  "number": 11,
+  "fen": "3k5/9/3PP4/6P2/4b2R1/1b7/9/5A3/r2NA2N1/3KC4 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "a2d2",
+   "e2d2",
+   "e6b4"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 11",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-12",
+  "origin": "classic",
+  "number": 12,
+  "fen": "4kc3/4a4/5a3/9/9/9/9/5A1r1/4AK3/9 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "f8e8",
+   "f3e3",
+   "h3f3",
+   "f2f3",
+   "e8f8"
+  ],
+  "alts": [
+   {
+    "at": 0,
+    "line": [
+     "f10f4",
+     "f3e3",
+     "h3f3",
+     "f2f3",
+     "f4f9"
+    ]
+   },
+   {
+    "at": 0,
+    "line": [
+     "f10f5",
+     "f3e3",
+     "h3f3",
+     "f2f3",
+     "f5f9"
+    ]
+   }
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 12",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-13",
+  "origin": "classic",
+  "number": 13,
+  "fen": "4k4/9/3PPR3/7B1/9/9/9/9/1cr2A3/1cn1AK3 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "c2e2",
+   "f2e2",
+   "c1b3",
+   "e2d1",
+   "b3d2"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 13",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-14",
+  "origin": "classic",
+  "number": 14,
+  "fen": "R2ck4/9/4c1N2/2ppb1p2/8R/9/4PPPNB/1n2CB3/4A4/1r1CKA1r1 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "e7c4",
+   "e2d2",
+   "b1d1",
+   "e1d1",
+   "h1f1"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 14",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-15",
+  "origin": "classic",
+  "number": 15,
+  "fen": "4k4/9/3Rc4/3pb1ppb/2N6/1R7/B2PBPP2/3NCc3/3AA4/4KC1r1 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "e7g4",
+   "f4g4",
+   "i7g4",
+   "e2f2",
+   "h1f1"
+  ],
+  "alts": [
+   {
+    "at": 0,
+    "line": [
+     "i7g4",
+     "f4g4",
+     "e7g4",
+     "e2f2",
+     "h1f1"
+    ]
+   }
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 15",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-16",
+  "origin": "classic",
+  "number": 16,
+  "fen": "4k4/5P3/3RPP3/5b3/4P4/4P1r2/9/3p2rc1/7R1/2N1CK3 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 6,
+  "line": [
+   "g5f5",
+   "e5f5",
+   "g3f3",
+   "h2f2",
+   "d3e2",
+   "c1e2",
+   "h3d3",
+   "e2f4",
+   "f7h4",
+   "f4h3",
+   "f3e2"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 16",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-17",
+  "origin": "classic",
+  "number": 17,
+  "fen": "4k4/2r2P3/3PPPN2/9/3b5/1P1n5/9/3A1A3/4R4/4KR1r1 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 6,
+  "line": [
+   "d6g4",
+   "e2f2",
+   "c9c1",
+   "e1e2",
+   "h1f1",
+   "f2f1",
+   "c1c2",
+   "e2d1",
+   "c2d2",
+   "d3d2",
+   "d5c3"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 17",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-18",
+  "origin": "classic",
+  "number": 18,
+  "fen": "1R5R1/b1Bck4/4c4/3rp1pB1/1P2p2P1/4P4/7N1/4CA3/4K2n1/1N2A4 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 9,
+  "line": [
+   "d7d3",
+   "e2d3",
+   "a9d7",
+   "d3e2",
+   "d7b4",
+   "e2f2",
+   "d9f9",
+   "f3e2",
+   "h2f3",
+   "e5f5",
+   "f9f4",
+   "f2f3",
+   "f4f8",
+   "f5g5",
+   "e6f6",
+   "h4f5",
+   "f6f5"
+  ],
+  "alts": [
+   {
+    "at": 12,
+    "line": [
+     "f4f9",
+     "f5g5",
+     "e6f6",
+     "h4f5",
+     "f6f5"
+    ]
+   },
+   {
+    "at": 12,
+    "line": [
+     "f4f7",
+     "f5g5",
+     "e6f6",
+     "h4f5",
+     "f6f5"
+    ]
+   }
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 18",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-19",
+  "origin": "classic",
+  "number": 19,
+  "fen": "c2k5/1RP2b3/3P3N1/8p/1BP6/9/9/b3K4/1n2B4/7p1 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 6,
+  "line": [
+   "a3c6",
+   "e3f3",
+   "f9d6",
+   "f3f2",
+   "b2d1",
+   "f2f1",
+   "h1g1",
+   "f1e1",
+   "d6g4",
+   "e1d1",
+   "c6a3"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 19",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-20",
+  "origin": "classic",
+  "number": 20,
+  "fen": "5k3/3R2P2/5P3/5R3/B3c4/1n7/9/C3r4/3C5/3K1n3 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "e3e1",
+   "d1e1",
+   "f1e3"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 20",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-21",
+  "origin": "classic",
+  "number": 21,
+  "fen": "3k5/5P3/3rPP3/9/9/9/9/9/5K3/4C1p2 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "d8d2",
+   "f2f3",
+   "d2d3",
+   "f3f2",
+   "d3f1"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 21",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-22",
+  "origin": "classic",
+  "number": 22,
+  "fen": "5k3/2R4R1/3P1PP2/3B5/9/c1P2p1P1/1B7/4A1r2/4A1r2/5K3 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 9,
+  "line": [
+   "g2g1",
+   "f1f2",
+   "g3g2",
+   "f2f3",
+   "f5f4",
+   "d7f4",
+   "a5f5",
+   "f4c6",
+   "g2g3",
+   "f3f2",
+   "g1g2",
+   "f2f1",
+   "g3f3",
+   "f1e1",
+   "g2g1",
+   "e2f1",
+   "g1f1"
+  ],
+  "alts": [
+   {
+    "at": 6,
+    "line": [
+     "g2g3",
+     "f3f2",
+     "a5f5",
+     "f4c6",
+     "g1g2",
+     "f2f1",
+     "g3f3",
+     "f1e1",
+     "g2g1",
+     "e2f1",
+     "g1f1"
+    ]
+   }
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 22",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-24",
+  "origin": "classic",
+  "number": 24,
+  "fen": "3k2N2/3c5/3cPP3/5P3/3P5/9/7b1/2C1CKR2/4B4/9 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "d8d1",
+   "f3f2",
+   "d9d2"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 24",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-25",
+  "origin": "classic",
+  "number": 25,
+  "fen": "4k4/9/3PPR3/9/9/9/1b2R4/3p5/5K3/3r5 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 5,
+  "line": [
+   "d3e2",
+   "f2f3",
+   "e2e1",
+   "f3f2",
+   "d1d2",
+   "f2f3",
+   "d2d3",
+   "e4e3",
+   "d3f1"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 25",
+   "title": "[공략] 박보장기 1.0 — 1화 (1~25국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-1.html"
+  }
+ },
+ {
+  "id": "classic-26",
+  "origin": "classic",
+  "number": 26,
+  "fen": "3k5/1R7/3P1P3/3R5/9/6b2/1N2P4/1n1KC4/1r1A1N1Cc/3A1c3 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "b2d2",
+   "d1d2",
+   "b3c1",
+   "b4c2",
+   "g5e2",
+   "h2e2",
+   "c1e2"
+  ],
+  "alts": [
+   {
+    "at": 4,
+    "line": [
+     "c1e2",
+     "h2e2",
+     "g5e2"
+    ]
+   }
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 26",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-27",
+  "origin": "classic",
+  "number": 27,
+  "fen": "4kc2R/9/3n5/1p1bpB1B1/7p1/9/3PPP1PP/2rNA4/4AN3/R2KCr3 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "d7b4",
+   "d1d2",
+   "c3c2",
+   "d2d1",
+   "c2e2"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 27",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-28",
+  "origin": "classic",
+  "number": 28,
+  "fen": "4c1R2/2N1ak3/5a3/4b4/1b4PP1/2P5R/B2n1P1N1/4C4/4A4/1r1AKCr2 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 5,
+  "line": [
+   "e7g4",
+   "f4g4",
+   "d4f3",
+   "e2f3",
+   "b1d1",
+   "e1d1",
+   "g1f1",
+   "d1d2",
+   "f1d3"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 28",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-29",
+  "origin": "classic",
+  "number": 29,
+  "fen": "4k4/R8/3PP4/5C3/5c3/5P3/9/c3ppp2/3AAN3/4BK3 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 8,
+  "line": [
+   "f3f2",
+   "e2f2",
+   "f6f4",
+   "f2e2",
+   "g3f3",
+   "e2f2",
+   "e3e2",
+   "d2e2",
+   "f3e3",
+   "e2f3",
+   "a3f3",
+   "f2e2",
+   "f3d1",
+   "f1f2",
+   "e3f3"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 29",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-30",
+  "origin": "classic",
+  "number": 30,
+  "fen": "3k1c3/1R6R/4P3b/b1PP4r/9/4P4/1N7/1n1KC4/r2AA4/9 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 6,
+  "line": [
+   "i7d7",
+   "c7d7",
+   "i8g5",
+   "e5f5",
+   "f10f1",
+   "e2d1",
+   "a2d2",
+   "d1d2",
+   "b3c1",
+   "b4c2",
+   "g5e2"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 30",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-31",
+  "origin": "classic",
+  "number": 31,
+  "fen": "4k4/9/3PPP3/9/9/6N1B/3npp3/3R4n/3CK3c/4pp3 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "e4e3",
+   "e2e3",
+   "i3g2",
+   "i5g2",
+   "f4f3",
+   "g5f3",
+   "d4f5"
+  ],
+  "alts": [
+   {
+    "at": 2,
+    "line": [
+     "f4f3",
+     "g5f3",
+     "i3g2",
+     "i5g2",
+     "d4f5"
+    ]
+   }
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 31",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-32",
+  "origin": "classic",
+  "number": 32,
+  "fen": "4k4/1R1P5/3PP4/3r5/8B/5b3/n5N1n/4RC3/c3A2r1/3ACK3 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 5,
+  "line": [
+   "h2f2",
+   "e2f2",
+   "i4h2",
+   "g4h2",
+   "f5i3",
+   "f1e2",
+   "d7d2",
+   "e2d2",
+   "a4b2"
+  ],
+  "alts": [
+   {
+    "at": 6,
+    "line": [
+     "a4b2",
+     "d1d2",
+     "d7d2"
+    ]
+   }
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 32",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-33",
+  "origin": "classic",
+  "number": 33,
+  "fen": "5k3/3R5/4PP3/4b4/9/c2p4P/5n3/5K3/4A3n/3A5 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "a5f5",
+   "f3e3",
+   "e7b5"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 33",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-35",
+  "origin": "classic",
+  "number": 35,
+  "fen": "5k3/2R6/4PP3/3P5/2n6/9/9/c4K3/C8/3nRC1r1 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "h1f1",
+   "e1f1",
+   "c6d4"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 35",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-36",
+  "origin": "classic",
+  "number": 36,
+  "fen": "4k4/3R5/3PPP3/9/9/8N/3r1r3/2n1K2C1/3B1A3/B2A5 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 8,
+  "line": [
+   "f4e4",
+   "e3f3",
+   "e4e2",
+   "d1e2",
+   "d4f4",
+   "f3e3",
+   "c3d5",
+   "e3d3",
+   "f4d4",
+   "d3e3",
+   "d4e4",
+   "e3d3",
+   "e4e3",
+   "e2e3",
+   "d5f4"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 36",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-37",
+  "origin": "classic",
+  "number": 37,
+  "fen": "4k4/8R/3PPP3/9/9/5N3/1bp2PP2/B4n3/1c3A1bC/1cr1AK3 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 5,
+  "line": [
+   "c1c3",
+   "e1e2",
+   "b4d1",
+   "e2e1",
+   "f3d2",
+   "f2e2",
+   "c3f3",
+   "i2f2",
+   "f3e2"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 37",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-38",
+  "origin": "classic",
+  "number": 38,
+  "fen": "5k3/8R/4PP3/3cp4/4P2B1/2B6/3P1PN1b/5rr2/3N1A2n/cb1CCK3 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 6,
+  "line": [
+   "b1d4",
+   "d1d4",
+   "f3d3",
+   "f2e2",
+   "d7f7",
+   "e6f6",
+   "g3f3",
+   "c5f3",
+   "i2g3",
+   "f1f2",
+   "f7f4"
+  ],
+  "alts": [
+   {
+    "at": 0,
+    "line": [
+     "f3d3",
+     "f2e2",
+     "d3e2",
+     "f1e2",
+     "i2g1",
+     "e2f1",
+     "b1d4",
+     "c5e2",
+     "d7d3",
+     "f1f2",
+     "g3f3"
+    ]
+   }
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 38",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-39",
+  "origin": "classic",
+  "number": 39,
+  "fen": "2N2k1c1/2R2c3/3PR4/9/9/6B2/1PPP3NP/n2KCA1n1/r6r1/1N4B1p b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 8,
+  "line": [
+   "h3f4",
+   "e8e4",
+   "a2e2",
+   "f3e2",
+   "h2e2",
+   "g5e2",
+   "f9f1",
+   "d3d2",
+   "a3b1",
+   "d2d1",
+   "b1c3",
+   "d1d2",
+   "h10h2",
+   "h4g2",
+   "h2f2"
+  ],
+  "alts": [
+   {
+    "at": 2,
+    "line": [
+     "h2e2",
+     "f3e2",
+     "a2e2",
+     "g5e2",
+     "f9f1",
+     "d3d2",
+     "a3b1",
+     "d2d1",
+     "b1c3",
+     "d1d2",
+     "h10h2",
+     "h4g2",
+     "h2f2"
+    ]
+   }
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 39",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-40",
+  "origin": "classic",
+  "number": 40,
+  "fen": "5k3/7R1/B3PP3/9/4cp3/5n3/9/3pp4/2R4C1/3c1K3 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 5,
+  "line": [
+   "f5g3",
+   "f1f2",
+   "e3f3",
+   "f2f3",
+   "d3e2",
+   "f3e3",
+   "g3e4",
+   "e3d3",
+   "e2d2"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 40",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-41",
+  "origin": "classic",
+  "number": 41,
+  "fen": "3k5/c7R/3PP4/p5B2/3P1pn2/1P7/n2r5/1N1AC1R2/1r1AK4/1cB6 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 6,
+  "line": [
+   "d4d3",
+   "e2d3",
+   "g6f4",
+   "g7e4",
+   "b1d1",
+   "d2d1",
+   "b2e2",
+   "d1e2",
+   "a4b2",
+   "d3d2",
+   "a9a2"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 41",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-43",
+  "origin": "classic",
+  "number": 43,
+  "fen": "3ck4/9/4PP2B/3NP4/7R1/n8/9/r8/4A1r2/3AK4 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "g2g1",
+   "e2f1",
+   "g1f1",
+   "e1f1",
+   "a3f3",
+   "f1e1",
+   "f3d1"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 43",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-44",
+  "origin": "classic",
+  "number": 44,
+  "fen": "4k4/2R6/3PP4/5N3/9/5pb2/9/1nNA5/3A4C/c2KR1rcC b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 4,
+  "line": [
+   "b3c1",
+   "c3b1",
+   "g1e1",
+   "d1e1",
+   "c1e2",
+   "c9c1",
+   "e2g1"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 44",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-45",
+  "origin": "classic",
+  "number": 45,
+  "fen": "5k3/6Pc1/3bRP3/5B3/2p1b1B2/1P7/5N3/Nnr1CC3/2r1A2R1/c2KA4 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 5,
+  "line": [
+   "c3d3",
+   "e2d3",
+   "h9h1",
+   "h2h1",
+   "c2d2",
+   "d3d2",
+   "b3c1",
+   "a3b1",
+   "e6b4"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 45",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-46",
+  "origin": "classic",
+  "number": 46,
+  "fen": "3k5/2R6/4PP3/5n3/9/3PC4/2b1n4/1c3K2N/c1r1A3C/B1r1A2R1 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 6,
+  "line": [
+   "e4c3",
+   "e2e3",
+   "f7e5",
+   "d5e5",
+   "c1d1",
+   "e1d1",
+   "c2e2",
+   "d1e2",
+   "c3b1",
+   "e2d3",
+   "b1d2"
+  ],
+  "alts": [
+   {
+    "at": 2,
+    "line": [
+     "c1d1",
+     "e1d1",
+     "f7e5",
+     "d5e5",
+     "c2e2",
+     "d1e2",
+     "c3b1",
+     "e2d3",
+     "b1d2"
+    ]
+   }
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 46",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-47",
+  "origin": "classic",
+  "number": 47,
+  "fen": "4k4/2R3P2/5P3/cP7/3p5/2N3P2/b8/3KC4/1r4n2/CN7 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 2,
+  "line": [
+   "a7d7",
+   "c5d7",
+   "g2f4"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 47",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ },
+ {
+  "id": "classic-49",
+  "origin": "classic",
+  "number": 49,
+  "fen": "4k4/9/3PPP3/9/4b4/4N1p2/PB2nb1p1/9/4K4/N1r6 b - - 0 1",
+  "checksOnly": true,
+  "goal": "mate",
+  "mateIn": 3,
+  "line": [
+   "e6b4",
+   "a4b4",
+   "c1d1",
+   "e2e3",
+   "f4h1"
+  ],
+  "source": {
+   "author": "박보장기 1.0, 국면 49",
+   "title": "[공략] 박보장기 1.0 — 2화 (26~50국면)",
+   "url": "https://enky1.blogspot.com/2015/09/10-2-2650.html"
+  }
+ }
+]

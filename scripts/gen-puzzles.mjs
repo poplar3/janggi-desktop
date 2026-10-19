@@ -4,12 +4,10 @@
 // В режиме MODE=compose вместо партий перебираются случайные позиции с небольшим числом фигур
 // (как в составленных задачах 묘수풀이) и в них ищутся маты в 2–4 хода.
 // Использование: FAIRY_STOCKFISH=<путь> [MODE=compose] node scripts/gen-puzzles.mjs [число_партий|число_позиций] [выход.json]
-import { spawn } from 'node:child_process';
-import { createInterface } from 'node:readline';
+import { Engine, isPassUci } from './uci-engine.mjs';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { createServer } from 'vite';
 
-const ENGINE = process.env.FAIRY_STOCKFISH ?? new URL('../src-tauri/engine/fairy-stockfish', import.meta.url).pathname;
 const GAMES = Number(process.argv[2] ?? 40);
 const OUT = process.argv[3] ?? new URL('../src/puzzles/generated.json', import.meta.url).pathname;
 const WORKERS = Number(process.env.WORKERS ?? 4);
@@ -19,67 +17,6 @@ const MIN_MATE = Number(process.env.MIN_MATE ?? 2);
 const vite = await createServer({ server: { middlewareMode: true, hmr: false }, appType: 'custom', logLevel: 'error' });
 const R = await vite.ssrLoadModule('/src/core/rules.ts');
 const { Game } = await vite.ssrLoadModule('/src/core/game.ts');
-
-class Engine {
-  constructor() {
-    this.proc = spawn(ENGINE, [], { stdio: ['pipe', 'pipe', 'ignore'] });
-    this.waiters = [];
-    this.buf = [];
-    createInterface({ input: this.proc.stdout }).on('line', (l) => {
-      this.buf.push(l);
-      const w = this.waiters[0];
-      if (w && w.test(l)) {
-        this.waiters.shift();
-        w.resolve(this.buf.splice(0));
-      }
-    });
-    this.multipv = 0;
-  }
-  send(s) {
-    this.proc.stdin.write(s + '\n');
-  }
-  wait(test) {
-    return new Promise((resolve) => this.waiters.push({ test, resolve }));
-  }
-  async init() {
-    this.send('uci');
-    await this.wait((l) => l === 'uciok');
-    this.send('setoption name UCI_Variant value janggi');
-    this.send('setoption name Threads value 1');
-    this.send('setoption name Hash value 64');
-    this.send('isready');
-    await this.wait((l) => l === 'readyok');
-  }
-  /** Линии последней завершённой глубины, лучшая первой. */
-  async search(fen, depth, multipv) {
-    if (multipv !== this.multipv) {
-      this.send(`setoption name MultiPV value ${multipv}`);
-      this.multipv = multipv;
-    }
-    this.buf = [];
-    this.send(`position fen ${fen}`);
-    this.send(`go depth ${depth}`);
-    const out = await this.wait((l) => l.startsWith('bestmove'));
-    const byDepth = new Map();
-    for (const l of out) {
-      const m = /^info .*?\bdepth (\d+) .*?\bmultipv (\d+) .*?\bscore (cp|mate) (-?\d+).*?\bpv (.+)$/.exec(l);
-      if (!m) continue;
-      const d = +m[1];
-      if (!byDepth.has(d)) byDepth.set(d, []);
-      const arr = byDepth.get(d);
-      arr[+m[2] - 1] = { score: m[3] === 'cp' ? { cp: +m[4] } : { mate: +m[4] }, pv: m[5].trim().split(/\s+/) };
-    }
-    const depths = [...byDepth.keys()].sort((a, b) => b - a);
-    for (const d of depths) {
-      const arr = byDepth.get(d).filter(Boolean);
-      if (arr.length && byDepth.get(d)[0]) return arr;
-    }
-    return [];
-  }
-  quit() {
-    this.send('quit');
-  }
-}
 
 const val = (s) => (s.mate !== undefined ? (s.mate > 0 ? 100000 - s.mate : -100000 - s.mate) : s.cp);
 const rnd = (n) => Math.floor(Math.random() * n);
@@ -98,7 +35,7 @@ async function verifyMate(eng, fen, n) {
     // Другой ход может тоже вести к мату, но только медленнее — иначе решение не единственное.
     if (left > 1 && ls[1] && ls[1].score.mate !== undefined && ls[1].score.mate > 0 && ls[1].score.mate <= left) return null;
     const mv = top.pv[0];
-    if (mv.slice(0, 2) === mv.slice(2, 4)) return null;
+    if (isPassUci(mv)) return null;
     g.playUci(mv);
     line.push(mv);
     const res = g.result();
@@ -128,7 +65,7 @@ async function verifyTactic(eng, fen) {
     if (a.score.cp < 250) return null;
     if (b && val(a.score) - val(b.score) < 250) return null;
     const mv = a.pv[0];
-    if (mv.slice(0, 2) === mv.slice(2, 4)) return null;
+    if (isPassUci(mv)) return null;
     g.playUci(mv);
     line.push(mv);
     if (g.result()) return null;

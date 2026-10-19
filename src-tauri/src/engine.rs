@@ -6,12 +6,16 @@ use std::path::PathBuf;
 use std::process::{Child, ChildStdin, Command, Stdio};
 use std::sync::Mutex;
 
-use tauri::{AppHandle, Emitter, Manager, State};
+use tauri::{AppHandle, Emitter, State};
 
 #[cfg(windows)]
 const ENGINE_FILE: &str = "fairy-stockfish.exe";
-#[cfg(not(windows))]
+#[cfg(not(any(windows, target_os = "android")))]
 const ENGINE_FILE: &str = "fairy-stockfish";
+/// На Android движок лежит в APK как «библиотека»: запускать файлы можно только из папки
+/// нативных библиотек приложения, куда Android распаковывает их при установке.
+#[cfg(target_os = "android")]
+const ANDROID_ENGINE_FILE: &str = "libfairystockfish.so";
 
 #[derive(Default)]
 pub struct EngineState(Mutex<Option<EngineProcess>>);
@@ -28,7 +32,24 @@ impl Drop for EngineProcess {
     }
 }
 
+/// Папка нативных библиотек приложения — та, из которой загружена наша библиотека.
+#[cfg(target_os = "android")]
+fn native_lib_dir() -> Option<PathBuf> {
+    let maps = std::fs::read_to_string("/proc/self/maps").ok()?;
+    maps.lines()
+        .filter_map(|l| l.split_whitespace().nth(5))
+        .find(|p| p.ends_with("/libjanggi_lib.so"))
+        .and_then(|p| PathBuf::from(p).parent().map(PathBuf::from))
+}
+
+#[cfg(target_os = "android")]
+fn engine_path(_app: &AppHandle) -> Option<PathBuf> {
+    Some(native_lib_dir()?.join(ANDROID_ENGINE_FILE)).filter(|p| p.is_file())
+}
+
+#[cfg(not(target_os = "android"))]
 fn engine_path(app: &AppHandle) -> Option<PathBuf> {
+    use tauri::Manager;
     if let Ok(p) = std::env::var("JANGGI_ENGINE") {
         return Some(PathBuf::from(p));
     }
@@ -49,6 +70,7 @@ pub fn engine_start(app: AppHandle, state: State<'_, EngineState>) -> Result<Str
     let path = engine_path(&app).ok_or("Файл движка Fairy-Stockfish не найден")?;
     let mut cmd = Command::new(&path);
     cmd.stdin(Stdio::piped()).stdout(Stdio::piped()).stderr(Stdio::null());
+    #[cfg(not(target_os = "android"))]
     if let Some(dir) = path.parent() {
         cmd.current_dir(dir);
     }
@@ -68,6 +90,9 @@ pub fn engine_start(app: AppHandle, state: State<'_, EngineState>) -> Result<Str
     std::thread::spawn(move || {
         for line in BufReader::new(stdout).lines() {
             match line {
+                // Строки о текущем ходе и границах оценки интерфейсу не нужны, а каждое событие
+                // на Android заметно нагружает WebView.
+                Ok(l) if l.contains(" currmove ") || l.contains("bound nodes") => {}
                 Ok(l) => {
                     let _ = handle.emit("engine-line", l);
                 }

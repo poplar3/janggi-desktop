@@ -1,6 +1,6 @@
 # Чанги — корейские шахматы
 
-Настольное приложение для игры в Чанги (장기) на русском языке. Основная платформа — Windows 11, позже Linux.
+Настольное приложение для игры в Чанги (장기) на русском языке. Основная платформа — Windows 11, есть версия для Android (APK), позже Linux.
 
 ## Возможности
 
@@ -86,6 +86,36 @@ npx tauri build        # установщик в src-tauri/target/release/bundle
 
 Готовые установщики для Windows собираются в GitHub Actions (вкладка Actions → «Сборка» → артефакт
 `janggi-windows`), а при публикации тега `v*` прикладываются к релизу.
+
+### Android
+
+APK для телефонов с 64-битным ARM (arm64-v8a — почти все телефоны последних лет, Android 7 и новее) собирается
+там же: артефакт `janggi-android`, файл `janggi-android-arm64.apk`. Его можно скопировать на телефон и установить,
+разрешив установку из неизвестных источников.
+
+Движок собирается из исходников компилятором Android NDK с той же встроенной нейросетью Чанги и кладётся в APK
+как `libfairystockfish.so`: Android разрешает запускать программы только из папки нативных библиотек приложения.
+Проект Android лежит в `src-tauri/gen/android`. Локальная сборка (нужны Android SDK, NDK и JDK 17+):
+
+```bash
+rustup target add aarch64-linux-android
+export ANDROID_HOME=<путь к SDK> NDK_HOME=<путь к NDK> ANDROID_NDK_HOME=<путь к NDK>
+npm run fetch-engine -- --android
+npx tauri android build --apk --target aarch64
+```
+
+Без ключа подписи APK подписывается отладочным ключом, который на сборщике каждый раз новый, — тогда новую версию
+поверх старой не поставить, сначала нужно удалить приложение (вместе с прогрессом задач). Чтобы обновления
+ставились поверх, создайте ключ один раз:
+
+```bash
+keytool -genkeypair -v -keystore janggi.jks -alias janggi -keyalg RSA -keysize 2048 -validity 10000
+base64 -w0 janggi.jks   # содержимое — в секрет ANDROID_KEYSTORE_BASE64
+```
+
+и добавьте в Settings → Secrets and variables → Actions секреты `ANDROID_KEYSTORE_BASE64`,
+`ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS` (`janggi`) и `ANDROID_KEY_PASSWORD`. Сам файл ключа храните
+у себя: без него обновить приложение не получится.
 
 ## Лицензии
 

@@ -51,9 +51,15 @@ interface Job {
   complete: PvInfo[] | null;
 }
 
-/** Потоков для непрерывного анализа: все ядра, кроме одного (не больше 8). */
+const isMobile = typeof navigator !== 'undefined' && /Android/i.test(navigator.userAgent);
+
+/**
+ * Потоков для непрерывного анализа: все ядра, кроме одного (не больше 8). На телефоне — половина ядер:
+ * у них много медленных ядер, и при полной загрузке интерфейс начинает тормозить, а телефон греться.
+ */
 export function analysisThreads(): number {
-  return Math.max(1, Math.min(8, (navigator.hardwareConcurrency || 2) - 1));
+  const cores = navigator.hardwareConcurrency || 2;
+  return Math.max(1, Math.min(8, isMobile ? Math.floor(cores / 2) : cores - 1));
 }
 
 export function parseInfo(line: string): PvInfo | null {
@@ -110,7 +116,7 @@ export class Engine {
         await this.waitFor((l) => l === 'uciok');
         this.transport.send('setoption name UCI_Variant value janggi');
         this.transport.send('setoption name Threads value 1');
-        this.transport.send('setoption name Hash value 256');
+        this.transport.send(`setoption name Hash value ${isMobile ? 64 : 256}`);
         await this.isReady();
       })().catch((e) => {
         this.ready = null;

@@ -295,6 +295,13 @@ export function findGeneral(board: Board, c: Color): number {
   return board.indexOf(g);
 }
 
+/** Поля, которые бьёт фигура на поле `from` (без учёта шаха своему генералу). */
+export function attacksFrom(board: Board, from: number): number[] {
+  const moves: Move[] = [];
+  if (board[from]) pieceMoves(board, from, moves);
+  return moves.filter((m) => m.to !== m.from).map((m) => m.to);
+}
+
 /** Атакует ли сторона `by` поле `target`. */
 export function isAttacked(board: Board, target: number, by: Color): boolean {
   const moves: Move[] = [];

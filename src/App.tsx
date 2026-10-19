@@ -10,6 +10,7 @@ import { Board, type Arrow } from './ui/Board';
 import { Modal } from './ui/Modal';
 import { MoveList } from './ui/MoveList';
 import { NewGameDialog } from './ui/NewGameDialog';
+import { PuzzlesView } from './ui/PuzzlesView';
 import { ReviewPanel } from './ui/ReviewPanel';
 import { RulesDialog } from './ui/RulesDialog';
 import { ScorePanel } from './ui/ScorePanel';
@@ -42,6 +43,7 @@ export default function App() {
   const [flipped, setFlipped] = useState(config.mode === 'bot' && config.humanColor === 'b');
   const [showNewGame, setShowNewGame] = useState(!DEV_FEN);
   const [showRules, setShowRules] = useState(false);
+  const [view, setView] = useState<'game' | 'puzzles'>(DEV_PARAMS?.get('view') === 'puzzles' ? 'puzzles' : 'game');
   const [resultClosed, setResultClosed] = useState(false);
 
   const [engineStatus, setEngineStatus] = useState<EngineStatus>({ state: 'loading' });
@@ -81,7 +83,7 @@ export default function App() {
     const my = ++token.current;
     engine.stop();
     setLines(null);
-    if (engineStatus.state !== 'ready' || showNewGame) {
+    if (engineStatus.state !== 'ready' || showNewGame || view !== 'game') {
       setThinking(null);
       return;
     }
@@ -157,7 +159,7 @@ export default function App() {
       if (token.current === my) engine.stop();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [version, analysisOn, prefs.evalMoves, engineStatus.state, showNewGame, config, reviewing]);
+  }, [version, analysisOn, prefs.evalMoves, engineStatus.state, showNewGame, config, reviewing, view]);
 
   const requestHint = useCallback(() => {
     if (!humanCanMove || engineStatus.state !== 'ready') return;
@@ -251,12 +253,13 @@ export default function App() {
     bump();
   };
 
-  const startGame = (c: GameConfig) => {
+  const startGame = (c: GameConfig, fen?: string) => {
     token.current++;
     engine.stop();
-    saveConfig(c);
+    if (!fen) saveConfig(c);
     setConfig(c);
-    gameRef.current = newGame(c);
+    gameRef.current = fen ? new Game(fen) : newGame(c);
+    setView('game');
     setFlipped(c.mode === 'bot' && c.humanColor === 'b');
     setSelected(null);
     setShowNewGame(false);
@@ -293,7 +296,7 @@ export default function App() {
   // Листание ходов стрелками
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (showNewGame || showRules) return;
+      if (showNewGame || showRules || view !== 'game') return;
       const n = gameRef.current.history.length;
       const cur = viewPly ?? n;
       if (e.key === 'ArrowLeft') setViewPly(Math.max(0, cur - 1));
@@ -305,7 +308,7 @@ export default function App() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [viewPly, showNewGame, showRules]);
+  }, [viewPly, showNewGame, showRules, view]);
 
   // ---------- Что показать на доске ----------
   const n = game.history.length;
@@ -363,10 +366,15 @@ export default function App() {
           <button className="btn" onClick={() => setShowNewGame(true)}>
             Новая партия
           </button>
+          {view !== 'game' && (
+            <button className="btn" onClick={() => setView('game')}>
+              К партии
+            </button>
+          )}
           <button className="btn" onClick={() => setShowRules(true)}>
             Правила
           </button>
-          <button className="btn" disabled title="Появится в следующей версии">
+          <button className={`btn${view === 'puzzles' ? ' active' : ''}`} onClick={() => setView('puzzles')}>
             Задачи
           </button>
           <button className="btn" disabled title="Появится в следующей версии">
@@ -375,6 +383,13 @@ export default function App() {
         </nav>
       </header>
 
+      {view === 'puzzles' && (
+        <PuzzlesView
+          style={config.pieceStyle}
+          onPlayFrom={(fen, human) => startGame({ ...config, mode: 'bot', humanColor: human }, fen)}
+        />
+      )}
+      {view === 'game' && (
       <main className="layout">
         <div className="board-area">
           <div
@@ -467,12 +482,13 @@ export default function App() {
           </div>
         </aside>
       </main>
+      )}
 
       {showNewGame && (
         <NewGameDialog initial={config} onStart={startGame} onClose={n || version > 0 ? () => setShowNewGame(false) : undefined} />
       )}
       {showRules && <RulesDialog style={config.pieceStyle} onClose={() => setShowRules(false)} />}
-      {result && !resultClosed && (
+      {result && !resultClosed && view === 'game' && (
         <Modal
           title="Партия окончена"
           onClose={() => setResultClosed(true)}

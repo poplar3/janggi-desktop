@@ -20,6 +20,22 @@ jobs:
       - run: npm test
       - run: npm run build
 
+  linux-engine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Собрать движок Fairy-Stockfish с нейросетью Чанги
+        run: node scripts/fetch-engine.mjs --rebuild
+      - name: Проверить движок
+        run: node scripts/engine-smoke.mjs src-tauri/engine/fairy-stockfish
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fairy-stockfish-linux
+          path: src-tauri/engine/fairy-stockfish
+
   windows:
     needs: test
     runs-on: windows-latest

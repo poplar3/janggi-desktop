@@ -90,6 +90,9 @@ pub fn engine_start(app: AppHandle, state: State<'_, EngineState>) -> Result<Str
     std::thread::spawn(move || {
         for line in BufReader::new(stdout).lines() {
             match line {
+                // Строки о текущем ходе и границах оценки интерфейсу не нужны, а каждое событие
+                // на Android заметно нагружает WebView.
+                Ok(l) if l.contains(" currmove ") || l.contains("bound nodes") => {}
                 Ok(l) => {
                     let _ = handle.emit("engine-line", l);
                 }

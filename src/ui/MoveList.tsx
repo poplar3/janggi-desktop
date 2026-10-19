@@ -25,7 +25,13 @@ export function MoveList({ game, reviews, viewPly, onSelect }: Props) {
   const active = viewPly ?? game.history.length;
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    ref.current?.querySelector('.move.active')?.scrollIntoView({ block: 'nearest' });
+    // Прокручиваем только сам список: scrollIntoView двигал бы и страницу (на телефоне — вниз к списку).
+    const box = ref.current;
+    const el = box?.querySelector<HTMLElement>('.move.active');
+    if (!box || !el) return;
+    const top = el.getBoundingClientRect().top - box.getBoundingClientRect().top + box.scrollTop;
+    if (top < box.scrollTop) box.scrollTop = top;
+    else if (top + el.offsetHeight > box.scrollTop + box.clientHeight) box.scrollTop = top + el.offsetHeight - box.clientHeight;
   }, [active, game.history.length]);
 
   const cell = (ply: number | undefined, cls: string) => {

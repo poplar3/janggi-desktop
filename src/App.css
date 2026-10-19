@@ -940,6 +940,12 @@ body {
   .board-wrap {
     width: 100%;
   }
+  /* Тень-фильтр перерисовывается при каждом изменении доски — на телефоне это заметные тормоза. */
+  .board {
+    filter: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(60, 35, 10, 0.25);
+  }
   .eval-bar {
     width: 8px;
   }
@@ -994,5 +1000,10 @@ body {
   }
   .side {
     width: 300px;
+  }
+  .board {
+    filter: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(60, 35, 10, 0.25);
   }
 }

@@ -38,6 +38,19 @@ export interface FindTask {
   explain: string;
 }
 
+/**
+ * Найти сильный ход; ход оценивает движок во время занятия.
+ * Засчитывается любой ход, уступающий лучшему не больше `tolerance` сантипешек.
+ */
+export interface BestTask {
+  kind: 'best';
+  fen: string;
+  prompt: string;
+  hint?: string;
+  explain: string;
+  tolerance?: number;
+}
+
 /** Вопрос с вариантами ответа. */
 export interface ChoiceTask {
   kind: 'choice';
@@ -57,10 +70,14 @@ export interface PuzzleSetTask {
   maxMoves?: number;
   /** Не короче стольких ходов решающего. */
   minMoves?: number;
+  /** Только задачи не ниже этого уровня. */
+  minLevel?: number;
+  /** Пропустить столько подходящих задач (чтобы уроки не повторяли друг друга). */
+  skip?: number;
 }
 
-export type Task = MovesTask | FindTask | ChoiceTask | PuzzleSetTask;
-export type ConcreteTask = MovesTask | FindTask | ChoiceTask;
+export type Task = MovesTask | FindTask | BestTask | ChoiceTask | PuzzleSetTask;
+export type ConcreteTask = MovesTask | FindTask | BestTask | ChoiceTask;
 
 export interface Lesson {
   id: string;

@@ -3,7 +3,9 @@ import { Game } from '../core/game';
 import { findGeneral, isPass, moveToUci, parseSquare, uciToMove, type Move } from '../core/rules';
 import { LEVELS } from '../puzzles';
 import { lessonTasks, LESSONS, loadProgress, saveProgress, type ConcreteTask, type Diagram, type Lesson } from '../training';
-import type { ChoiceTask, FindTask, MovesTask } from '../training/types';
+import type { BestTask, ChoiceTask, FindTask, MovesTask } from '../training/types';
+import { describePlan } from '../analysis/plan';
+import { getEngine, type PvInfo, type Score } from '../engine/engine';
 import { Board, type Arrow } from './Board';
 import type { PieceStyle } from './pieces';
 
@@ -218,6 +220,7 @@ interface TaskProps {
 function TaskView(p: TaskProps) {
   if (p.task.kind === 'moves') return <MovesTaskView {...p} task={p.task} />;
   if (p.task.kind === 'choice') return <ChoiceTaskView {...p} task={p.task} />;
+  if (p.task.kind === 'best') return <BestTaskView {...p} task={p.task} />;
   return <FindTaskView {...p} task={p.task} />;
 }
 
@@ -481,6 +484,172 @@ function FindTaskView({ task, style, solved, onSolved, head, foot }: TaskProps &
         {!solving && status !== 'reply' && (
           <button className="btn" onClick={reset}>
             Заново
+          </button>
+        )}
+      </div>
+      {foot}
+    </Shell>
+  );
+}
+
+/** Глубина, на которой движок оценивает ход ученика. */
+const BEST_DEPTH = 14;
+const BEST_LINES = 6;
+const scoreVal = (sc: Score) => (sc.mate !== undefined ? (sc.mate > 0 ? 100000 - sc.mate : -100000 - sc.mate) : (sc.cp ?? 0));
+
+function BestTaskView({ task, style, solved, onSolved, head, foot }: TaskProps & { task: BestTask }) {
+  const [game, setGame] = useState(() => new Game(task.fen));
+  const solver = useMemo(() => new Game(task.fen).turn, [task]);
+  const [lines, setLines] = useState<PvInfo[] | null>(null);
+  const [failed, setFailed] = useState(false);
+  const [selected, setSelected] = useState<number | null>(null);
+  const [verdict, setVerdict] = useState<null | { ok: boolean; best: boolean; text: string }>(null);
+  const [tries, setTries] = useState(0);
+  const pending = useRef<Move | null>(null);
+
+  // Ход оценивает тот же движок, что и подсказки: фиксированная глубина, один поток, без кэша — ответ воспроизводим.
+  // Поиск может прервать другой экран (например, анализ партии при запуске движка) — тогда считаем заново.
+  // Принимаем только досчитанный до конца результат, чтобы оценка не зависела от момента остановки.
+  useEffect(() => {
+    let alive = true;
+    const engine = getEngine();
+    const legal = new Set(new Game(task.fen).legalMoves().map(moveToUci));
+    const run = (attempt: number) =>
+      engine
+        .search({ fen: task.fen, depth: BEST_DEPTH, multipv: BEST_LINES, threads: 1, clearHash: true })
+        .then((r) => {
+          if (!alive) return;
+          const ls = r.lines.filter((l) => legal.has(l.pv[0]));
+          if (ls.length && ls[0].depth >= BEST_DEPTH) setLines(ls);
+          else if (attempt < 3) void run(attempt + 1);
+          else setFailed(true);
+        })
+        .catch(() => alive && setFailed(true));
+    engine.stop();
+    void run(0);
+    return () => {
+      alive = false;
+      engine.stop();
+    };
+  }, [task]);
+
+  const judge = (m: Move, ls: PvInfo[]) => {
+    const uci = moveToUci(m);
+    const tol = task.tolerance ?? 60;
+    const best = scoreVal(ls[0].score);
+    const mine = ls.find((l) => l.pv[0] === uci);
+    const loss = mine ? best - scoreVal(mine.score) : Infinity;
+    const g = new Game(task.fen);
+    g.play(m);
+    setGame(g);
+    if (loss <= tol) {
+      setVerdict({ ok: true, best: mine === ls[0] || loss <= 5, text: describePlan(task.fen, mine!.pv, 7).text });
+      onSolved();
+    } else {
+      setTries((t) => t + 1);
+      setVerdict({ ok: false, best: false, text: '' });
+    }
+  };
+
+  // Ход, сделанный до окончания расчёта, оценивается, как только движок закончит.
+  useEffect(() => {
+    if (lines && pending.current) {
+      judge(pending.current, lines);
+      pending.current = null;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lines]);
+
+  const tryMove = (m: Move) => {
+    setSelected(null);
+    if (lines) judge(m, lines);
+    else {
+      pending.current = m;
+      const g = new Game(task.fen);
+      g.play(m);
+      setGame(g);
+    }
+  };
+
+  const reset = () => {
+    setGame(new Game(task.fen));
+    setVerdict(null);
+    setSelected(null);
+  };
+
+  const canMove = !verdict && !pending.current && !failed;
+  const onSquareClick = (s: number) => {
+    if (!canMove) return;
+    const p = game.position.board[s];
+    if (selected !== null) {
+      const m = game.legalMoves().find((x) => x.from === selected && x.to === s);
+      if (m) return tryMove(m);
+    }
+    if (p && (p === p.toUpperCase() ? 'w' : 'b') === game.turn) setSelected(s === selected ? null : s);
+    else setSelected(null);
+  };
+  const pass = () => {
+    const k = findGeneral(game.position.board, game.turn);
+    const m = { from: k, to: k };
+    if (game.isLegal(m)) tryMove(m);
+  };
+
+  const showBest = verdict && !verdict.ok && tries >= 2 && lines;
+  const bestMove = showBest ? uciToMove(lines[0].pv[0]) : null;
+  const last = game.history[game.history.length - 1];
+  const targets = selected !== null ? game.legalMoves().filter((m) => m.from === selected) : [];
+  const arrows: Arrow[] = bestMove ? [{ from: bestMove.from, to: bestMove.to, color: GREEN, main: true }] : [];
+
+  return (
+    <Shell
+      board={
+        <Board
+          board={game.position.board}
+          style={style}
+          flipped={solver === 'b'}
+          selected={selected}
+          targets={targets}
+          lastMove={last ? last.move : null}
+          checkSquare={game.inCheck() ? findGeneral(game.position.board, game.turn) : null}
+          arrows={arrows}
+          onSquareClick={onSquareClick}
+        />
+      }
+    >
+      {head}
+      <p className="puzzle-desc">
+        {task.prompt} {!task.prompt.startsWith('Ход ') && <span className="muted">Ход {solver === 'w' ? 'Чо' : 'Хана'}.</span>}
+      </p>
+      <div className="muted small">
+        {failed
+          ? 'Движок недоступен — это задание проверить нельзя.'
+          : lines
+            ? 'Ход оценит движок: засчитывается лучший ход или почти равный ему.'
+            : 'Движок анализирует позицию…'}
+      </div>
+      {task.hint && !verdict && <div className="muted small">Подсказка: {task.hint}</div>}
+      {pending.current && !lines && <div className="puzzle-status">Проверяю ход…</div>}
+      {verdict?.ok && (
+        <div className="alert game-over">
+          <b>{verdict.best ? 'Отлично, это лучший ход!' : 'Хороший ход, почти равный лучшему.'}</b> {task.explain}
+          {verdict.text && <div className="muted small">Дальше движок ожидает: {verdict.text}</div>}
+        </div>
+      )}
+      {verdict && !verdict.ok && (
+        <div className="alert check">
+          Есть ход заметно сильнее. {tries >= 2 && lines ? <>Лучший ход показан стрелкой: {describePlan(task.fen, lines[0].pv, 1).moves[0]}.</> : 'Попробуйте ещё раз.'}
+        </div>
+      )}
+      {solved && !verdict && <div className="muted small">✓ Задание уже выполнено.</div>}
+      <div className="ai-buttons">
+        {canMove && (
+          <button className="btn" onClick={pass} title="Пропуск хода тоже может быть лучшим ходом">
+            Пропустить ход
+          </button>
+        )}
+        {verdict && (
+          <button className="btn" onClick={reset}>
+            {verdict.ok ? 'Заново' : 'Ещё раз'}
           </button>
         )}
       </div>

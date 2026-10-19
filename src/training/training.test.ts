@@ -60,6 +60,7 @@ describe('курс обучения', () => {
           expect(g.legalMoves().filter((m) => m.from === s && !isPass(m)).length).toBeGreaterThan(0);
           continue;
         }
+        if (t.kind === 'best') continue;
         if (t.goal === 'exact') expect(t.moves?.length).toBeGreaterThan(0);
         if (t.line) {
           for (const u of t.line) g.playUci(u);

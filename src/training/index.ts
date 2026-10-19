@@ -13,9 +13,9 @@ export function lessonTasks(lesson: Lesson): ConcreteTask[] {
     return allPuzzles()
       .filter((p) => {
         const moves = (p.line.length + 1) / 2;
-        return p.concepts.includes(t.concept) && moves <= (t.maxMoves ?? 9) && moves >= (t.minMoves ?? 1) && !used.has(p.id);
+        return p.concepts.includes(t.concept) && moves <= (t.maxMoves ?? 9) && moves >= (t.minMoves ?? 1) && p.level.n >= (t.minLevel ?? 1) && !used.has(p.id);
       })
-      .slice(0, t.count)
+      .slice(t.skip ?? 0, (t.skip ?? 0) + t.count)
       .map((p) => {
         used.add(p.id);
         return {

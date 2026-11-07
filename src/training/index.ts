@@ -1,6 +1,8 @@
 import type { GameId } from '../core/types';
 import { allPuzzles } from '../puzzles';
 import { LESSONS } from './lessons';
+import { MAKRUK_LESSONS } from './lessonsMakruk';
+import { SHATRANJ_LESSONS } from './lessonsShatranj';
 import { SHOGI_LESSONS } from './lessonsShogi';
 import { XIANGQI_LESSONS } from './lessonsXiangqi';
 import type { ConcreteTask, Lesson } from './types';
@@ -11,7 +13,8 @@ export { XIANGQI_LESSONS } from './lessonsXiangqi';
 
 /** Курс обучения для игры. */
 export function lessonsFor(game: GameId): Lesson[] {
-  if (game === 'makruk' || game === 'shatranj') return [];
+  if (game === 'makruk') return MAKRUK_LESSONS;
+  if (game === 'shatranj') return SHATRANJ_LESSONS;
   return game === 'xiangqi' ? XIANGQI_LESSONS : game === 'shogi' ? SHOGI_LESSONS : LESSONS;
 }
 export type { ConcreteTask, Diagram, Lesson, TheoryBlock } from './types';

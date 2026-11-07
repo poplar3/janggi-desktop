@@ -33,3 +33,27 @@ export function shogiPos(turn: Color, pieces: Record<string, string>, hand = '')
   }
   return `${rows.join('/')}[${hand}] ${turn} - - 0 1`;
 }
+
+/**
+ * FEN доски 8×8 (Макрук, Шатрандж) по расстановке, белые внизу:
+ * `pos8('w', { d1: 'K', e8: 'k', a1: 'R' })`.
+ */
+export function pos8(turn: Color, pieces: Record<string, string>): string {
+  const rows: string[] = [];
+  for (let r = 8; r >= 1; r--) {
+    let row = '';
+    let empty = 0;
+    for (const f of 'abcdefgh') {
+      const p = pieces[`${f}${r}`];
+      if (!p) empty++;
+      else {
+        if (empty) row += empty;
+        empty = 0;
+        row += p;
+      }
+    }
+    if (empty) row += empty;
+    rows.push(row);
+  }
+  return `${rows.join('/')} ${turn} - - 0 1`;
+}

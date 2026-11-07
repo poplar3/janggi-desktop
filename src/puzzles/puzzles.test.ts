@@ -4,6 +4,8 @@ import { annotate } from './annotate';
 import bakboJson from './bakbo.json';
 import classicJson from './classic.json';
 import ownJson from './own.json';
+import makrukJson from './makruk.json';
+import shatranjJson from './shatranj.json';
 import shogiJson from './shogi.json';
 import xiangqiJson from './xiangqi.json';
 import { getVariant } from '../core/variants';
@@ -91,10 +93,12 @@ describe('задачи', () => {
   });
 });
 
-describe('задачи Сянци и Сёги', () => {
+describe('задачи Сянци, Сёги, Макрука и Шатранджа', () => {
   const sets = [
     ['xiangqi', xiangqiJson],
     ['shogi', shogiJson],
+    ['makruk', makrukJson],
+    ['shatranj', shatranjJson],
   ] as const;
   for (const [game, json] of sets) {
     const list = json as Raw[];
@@ -116,6 +120,11 @@ describe('задачи Сянци и Сёги', () => {
       if (p.goal === 'mate') {
         expect(g.result()).toEqual({ winner: solver, reason: 'checkmate' });
         expect((p.line.length + 1) / 2).toBe(p.mateIn);
+      } else if (v.board === 'cells' && !v.hasHands) {
+        // Макрук и Шатрандж: выигрыш не меньше кхона (2,5), либо партия уже выиграна (оголённый король).
+        expect(p.gain).toBeGreaterThanOrEqual(2.5);
+        const r = g.result();
+        if (r) expect(r.winner).toBe(solver);
       } else expect(p.gain).toBeGreaterThanOrEqual(3);
     });
     it(`${game}: разметка есть у всех`, () => {

@@ -1,6 +1,8 @@
 import bakbo from './bakbo.json';
 import classic from './classic.json';
 import own from './own.json';
+import makruk from './makruk.json';
+import shatranj from './shatranj.json';
 import shogi from './shogi.json';
 import xiangqi from './xiangqi.json';
 import type { GameId } from '../core/types';
@@ -23,6 +25,8 @@ const OTHER_SOURCE: Record<string, { author: string; title: string }> = {
   game: OWN_SOURCE.game,
   compose: OWN_SOURCE.compose,
   checks: { author: 'Задачи приложения', title: 'Составлена с помощью Fairy-Stockfish: каждый ход решающего — шах; решение проверено движком на единственность' },
+  search: { author: 'Задачи приложения', title: 'Позиция с небольшим числом фигур; решение найдено полным перебором по правилам игры и проверено на единственность' },
+  'search-checks': { author: 'Задачи приложения', title: 'Позиция с небольшим числом фигур, каждый ход решающего — шах; решение найдено полным перебором и проверено на единственность' },
 };
 
 const cache: Partial<Record<GameId, Puzzle[]>> = {};
@@ -34,11 +38,9 @@ const sortPuzzles = (list: Puzzle[]) =>
 export function allPuzzles(game: GameId = 'janggi'): Puzzle[] {
   const hit = cache[game];
   if (hit) return hit;
-  // Для макрука и шатранджа задач пока нет.
-  if (game === 'makruk' || game === 'shatranj') return (cache[game] = []);
   if (game !== 'janggi') {
     const v = getVariant(game);
-    const raw = (game === 'xiangqi' ? xiangqi : shogi) as (PuzzleData & { origin: string })[];
+    const raw = ({ xiangqi, shogi, makruk, shatranj }[game] ?? []) as (PuzzleData & { origin: string })[];
     return (cache[game] = sortPuzzles(raw.map(({ origin, ...d }) => annotate({ ...d, source: OTHER_SOURCE[origin] ?? OWN_SOURCE.game }, v))));
   }
   const data = [...own, ...bakbo, ...classic] as (PuzzleData & { origin: keyof typeof OWN_SOURCE | 'classic' })[];

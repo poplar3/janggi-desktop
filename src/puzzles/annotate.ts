@@ -83,8 +83,8 @@ export interface Puzzle extends PuzzleData {
 const MATE_BY_PIECE: Record<GameId, Record<string, ConceptId>> = {
   janggi: { R: 'mate-chariot', C: 'mate-cannon', N: 'mate-horse', B: 'mate-elephant', P: 'mate-soldier' },
   xiangqi: { R: 'mate-chariot', C: 'mate-cannon', N: 'mate-horse', P: 'mate-soldier' },
-  makruk: {},
-  shatranj: {},
+  makruk: { R: 'mate-rook', N: 'mate-knight', S: 'mate-khon', M: 'mate-met', P: 'mate-pawn' },
+  shatranj: { R: 'mate-rook', N: 'mate-knight', B: 'mate-alfil', Q: 'mate-met', P: 'mate-pawn' },
   shogi: {
     R: 'mate-rook', '+R': 'mate-rook', B: 'mate-bishop', '+B': 'mate-bishop',
     G: 'mate-gold', '+P': 'mate-gold', '+L': 'mate-gold', '+N': 'mate-gold', '+S': 'mate-gold',
@@ -169,7 +169,7 @@ export function annotate(d: PuzzleData, variant: Variant = JANGGI): Puzzle {
   const last = mine[mine.length - 1];
   const concepts: ConceptId[] = [];
   const add = (c: ConceptId) => !concepts.includes(c) && concepts.push(c);
-  const big = v.id === 'xiangqi' ? 2 : 3;
+  const big = v.id === 'xiangqi' ? 2 : v.id === 'makruk' || v.id === 'shatranj' ? 2.5 : 3;
   let screen = false;
   if (d.checksOnly) add('check-chain');
 
@@ -214,7 +214,7 @@ export function annotate(d: PuzzleData, variant: Variant = JANGGI): Puzzle {
     if (palaceDiagonal(v, first)) add('palace-diagonal');
     if (first.move.from < 0) add('drop');
   }
-  if (v.id === 'shogi' && mine.some((h) => h.move.promo)) add('promotion');
+  if ((v.id === 'shogi' || v.board === 'cells') && mine.some((h) => h.move.promo)) add('promotion');
   if (sacrificed) add('sacrifice');
   if (quiet && (d.goal === 'mate' || !concepts.includes('fork'))) add('quiet-move');
   if (d.goal === 'material' && !concepts.length) add('material-gain');
@@ -274,8 +274,8 @@ function explain(v: Variant, d: PuzzleData, hist: HistoryEntry[], solver: Color,
   const nom = (p: string) => v.pieceInfo(p).ru.toLowerCase();
   const acc = (p: string) => v.pieceInfo(p).acc;
   const king = v.kingAcc;
-  const kingNom = v.id === 'shogi' ? 'король' : 'генерал';
-  const kingDat = v.id === 'shogi' ? 'королю' : 'генералу';
+  const kingNom = v.kingAcc === 'короля' ? 'король' : 'генерал';
+  const kingDat = v.kingAcc === 'короля' ? 'королю' : 'генералу';
   if (d.checksOnly) {
     const k = Math.ceil(hist.length / 2);
     parts.push(`Все ${k} ${plural(k, 'ход', 'хода', 'ходов')} решения — шахи, поэтому у соперника каждый раз выбор только между защитами от шаха.`);
@@ -308,7 +308,7 @@ function explain(v: Variant, d: PuzzleData, hist: HistoryEntry[], solver: Color,
     if (concepts.includes('hanging-piece')) parts.push(`${capitalize(acc(first.captured!))} на ${v.squareName(first.move.to)} никто не защищал.`);
     if (won.length)
       parts.push(
-        `В итоге ${v.sides[solver]} ${v.id === 'xiangqi' ? 'забирают' : 'забирает'} ${won.join(' и ')} и ${v.id === 'xiangqi' ? 'выигрывают' : 'выигрывает'} ${formatPoints(d.gain ?? 0)} ${plural(Math.round(d.gain ?? 0), 'очко', 'очка', 'очков')}.`,
+        `В итоге ${v.pluralSides ? v.sides[solver].toLowerCase() : v.sides[solver]} ${v.pluralSides ? 'забирают' : 'забирает'} ${won.join(' и ')} и ${v.pluralSides ? 'выигрывают' : 'выигрывает'} ${formatPoints(d.gain ?? 0)} ${Number.isInteger(d.gain ?? 0) ? plural(d.gain ?? 0, 'очко', 'очка', 'очков') : 'очка'}.`,
       );
   }
   return parts.join(' ');
